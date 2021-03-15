@@ -24,7 +24,8 @@ body {
   color: rgba(0, 0, 0, 0.8);
   /*box-shadow: inset 0 0 10rem rgba(76, 255, 0, .5);*/
   /*box-shadow: inset 0 0 10rem rgba(49, 123, 34, 0.7);*/
-  box-shadow: inset 0 0 10rem #4BBE34;
+  /*box-shadow: inset 0 0 10rem #4BBE34;*/
+  background-color: #EBFFE5;
   min-height: 100%;
 }
 
