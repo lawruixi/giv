@@ -16,7 +16,7 @@
                     <!--<h3 class="float-md-start mb-0">giv</h3>-->
                     <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
                     <nav class="nav nav-masthead justify-content-center float-md-end">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
                         <a class="nav-link" href="/about">About</a>
                         <a class="nav-link" href="/contact">Contact</a>
                         <a class="nav-link" href="/login">Sign In</a>
@@ -24,13 +24,20 @@
                 </div>
             </header>
 
-            <main class="px-3">
-                <h1>giv your opinion.</h1>
-                <p class="lead">With giv, it becomes easier than ever to stay connected with friends, family and topics of interest around the world.</p>
-                <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white">Discover now</a>
-                </p>
-            </main>
+            <table border="1" cellpadding="5" cellspacing="5">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                </tr>
+                {% for row in data %}
+                <tr>
+                    {% for d in row %}
+                    <td>{{ d }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </table>
 
             <footer class="mt-auto">
                 <p class="font-weight-italic">giv, 2021</p>
@@ -38,4 +45,6 @@
         </div>
 
     </body>
+</html>
+
 </html>

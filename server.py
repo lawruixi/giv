@@ -15,9 +15,20 @@ mysql = MySQL(app);
 def home():
     return render_template('index.html')
 
-@app.route('/about')
+@app.route('/about', methods=["GET", "POST"])
 def about():
-    return render_template('about.html');
+    if(request.method == "POST" and "username" in request.form):
+        details = request.form;
+        username = details["username"];
+        try:
+            cur = mysql.connection.cursor();
+            cur.execute("SELECT id, username, email FROM accounts WHERE username = %s", (username,));
+            data = cur.fetchall();
+            cur.close();
+            return render_template('results.html', data=data);
+        except Exception as e:
+            return "MySQL Error" + str(e.args);
+    return render_template('about.html'); #TODO
 
 @app.route('/<user>')
 def welcome(user):
