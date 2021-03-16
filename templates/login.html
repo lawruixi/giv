@@ -16,20 +16,26 @@
                     <!--<h3 class="float-md-start mb-0">giv</h3>-->
                     <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
                     <nav class="nav nav-masthead justify-content-center float-md-end">
-                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
                         <a class="nav-link" href="/about">About</a>
                         <a class="nav-link" href="/contact">Contact</a>
-                        <a class="nav-link" href="login">Sign In</a>
+                        <a class="nav-link active" href="#">Sign In</a>
                     </nav>
                 </div>
             </header>
 
-            <main class="px-3">
-                <h1>giv your opinion.</h1>
-                <p class="lead">With giv, it becomes easier than ever to stay connected with friends, family and topics of interest around the world.</p>
-                <p class="lead">
-                <a href="#" class="btn btn-lg btn-secondary fw-bold border-white">Discover now</a>
-                </p>
+            <main class="px-3 w-75 mx-auto">
+                <form method="POST" action="">
+                    <div class="login-div h-100 p-3 border border-dark rounded d-flex flex-column"> 
+                        <h2 class="font-weight-bold">Login</h2>
+                        <p class="font-weight-bold mb-0">Username</p>
+                        <input class="my-auto" type="text" id="username" name="username">
+                        <p class="font-weight-bold mb-0">Password</p>
+                        <input class="my-auto" type="text" id="password" name="password">
+                        <input class="btn btn-secondary btn-sm mt-2" type="submit" value="Log In">
+                    </div>
+                </form>
+                <a href="/register">Don't have an account? Register now.</a>
             </main>
 
             <footer class="mt-auto">
@@ -38,4 +44,6 @@
         </div>
 
     </body>
+</html>
+
 </html>

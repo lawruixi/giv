@@ -1,7 +1,15 @@
 import flask
-from flask import render_template;
+from flask import render_template, request;
+from flask_mysqldb import MySQL;
+import MySQLdb.cursors;
 
 app = flask.Flask(__name__);
+app.config['MYSQL_HOST'] = 'localhost';
+app.config['MYSQL_USER'] = 'user';
+app.config['MYSQL_PASSWORD'] = 'dragon1234';
+app.config['MYSQL_DB'] = 'giv';
+
+mysql = MySQL(app);
 
 @app.route('/')
 def home():
@@ -18,6 +26,37 @@ def welcome(user):
 @app.route('/contact')
 def contact():
     return render_template('contact.html');
+
+@app.route('/register', methods=["GET", "POST"])
+def register():
+    if(request.method == "POST"):
+        details = request.form;
+        email = details["email"];
+        username = details["username"];
+        password = details["password"];
+        try:
+            cur = mysql.connection.cursor();
+            cur.execute("INSERT INTO accounts(email, username, password) VALUES (%s, %s, %s)", (email, username, password));
+            mysql.connection.commit();
+            cur.close();
+            return "You are now registered :D";
+        except Exception as e:
+            return "MySQL Error [%d] : %s" % (e.args[0], e.args[1]);
+    return render_template('register.html'); #TODO
+
+@app.route('/login', methods=["GET", "POST"])
+def login():
+    if(request.method == "POST" and "username" in request.form and "password" in request.form):
+        username = request.form["username"];
+        password = request.form["password"];
+
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
+        cursor.execute("SELECT * FROM accounts WHERE username = %s AND password = %s", (username, password));
+        account = cursor.fetchone();
+        if(account): return "Logged in :D";
+        else:
+            return "Incorrect username/password :("
+    return render_template('login.html');
 
 @app.route('/members')
 def members():

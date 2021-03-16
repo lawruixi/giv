@@ -5,13 +5,15 @@
 
 
 /* Custom default button */
-.btn-secondary,
+.btn-secondary {
+    background-color: #307351;
+}
+
 .btn-secondary:hover,
 .btn-secondary:focus {
-  /*color: #333;*/
     color:#fff;
-    background-color: #307351;
-  text-shadow: none; /* Prevent inheritance from `body` */
+    background-color: #49AE7B;
+    text-shadow: none; /* Prevent inheritance from `body` */
 }
 
 
@@ -42,12 +44,25 @@ body {
     
 }
 
+.login-div{
+    border-width: 3px !important;
+}
+
+.font-weight-bold{
+    font-weight:700;
+}
+
+.font-weight-italic{
+    font-style:italic;
+}
+
 .nav-masthead .nav-link {
   padding: .25rem 0;
   font-weight: 700;
   /*color: rgba(255, 255, 255, 0.2);*/
   color: rgba(0, 0, 0, 0.8);
   background-color: transparent;
+
   border-bottom: .1rem solid transparent;
 }
 
