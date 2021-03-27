@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html class="h-100">
+<html class="h-100" style="width: 100vw;">
     <head>
         <title>giv</title>
         <meta charset="utf-8">
@@ -9,17 +9,71 @@
         <link rel="stylesheet" href="../static/style.css">
 
     </head>
-    <body class="p-3">
-        <h1>About</h1> 
-        <p>hoi i can creat web</p>
-        <h2>Search for users</h2>
-        <form method="POST" action="">
-            <div class="login-div h-100 p-3 border border-dark rounded d-flex flex-column"> 
-                <p class="font-weight-bold mb-0">Username</p>
-                <input class="my-auto" type="text" id="username" name="username">
-                <input class="btn btn-secondary btn-sm mt-2" type="submit" value="Search">
+    <body class="h-100">
+        <div class="cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
+            <header class="mb-2 h-25">
+                <div class="h-100">
+                    <!--<h3 class="float-md-start mb-0">giv</h3>-->
+                    <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" href="/about">About</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/login">Sign In</a>
+                    </nav>
+                </div>
+            </header>
+            <!--<h1>About</h1> -->
+            <!--<p>hoi i can creat web</p>-->
+            <!--<h2>Search for users</h2>-->
+            <!--<form method="POST" action="">-->
+                <!--<div class="login-div h-100 p-3 border border-dark rounded d-flex flex-column"> -->
+                    <!--<p class="font-weight-bold mb-0">Username</p>-->
+                    <!--<input class="my-auto" type="text" id="username" name="username">-->
+                    <!--<input class="btn btn-secondary btn-sm mt-2" type="submit" value="Search">-->
+                <!--</div>-->
+            <!--</form>-->
+            <div id="about-image-1" class="w-100 p-3 my-3 flex-column text-color-white fw-bold border-white rounded">
+                <h2 class="text-center">Stay connected.</h2>
+                <div class="d-flex align-items-center flex-row">
+                    <img class="float-md-start m-2" src="../static/connected.png">
+                    <center class="w-100 mx-3">giv allows you to easily remain connected with all your friends.</center>
+                </div>
             </div>
-        </form>
+            <div id="about-image-2" class="w-100 p-3 my-3 flex-column text-color-white fw-bold border-white rounded">
+                <h2 class="text-center">Stay up to date.</h2>
+                <div class="d-flex align-items-center flex-row">
+                    <center class="w-100 mx-3">Receive the latest news and information about your favourite topics, all in one place.</center>
+                    <img class="float-md-start m-2" src="../static/clock.png">
+                </div>
+            </div>
+            <div id="about-image-3" class="w-100 p-3 my-3 flex-column text-color-white fw-bold border-white rounded">
+                <h2 class="text-center">So much to see!</h2>
+                <div class="d-flex align-items-center flex-row">
+                    <img class="float-md-start m-2" src="../static/binoculars.png">
+                    <center class="w-100 mx-3">Many types of content, from art to music to memes and more!</center>
+                </div>
+            </div>
+            <div id="about-image-4" class="w-100 p-3 my-3 flex-column text-color-white fw-bold border-white rounded">
+                <h2 class="text-center">First-class chatting.</h2>
+                <div class="d-flex align-items-center flex-row">
+                    <center class="w-100 mx-3">As the world's most innovative chatting application, we deliver features that rival those of the best.</center>
+                    <img class="float-md-start m-2" src="../static/chat.png">
+                </div>
+            </div>
+            <div id="about-image-5" class="w-100 p-3 my-3 flex-column text-color-white fw-bold border-white rounded">
+                <h2 class="text-center">Spread the love!</h2>
+                <div class="d-flex align-items-center flex-row">
+                    <img class="float-md-start m-2" src="../static/love.png">
+                    <center class="w-100 mx-3">Support us by joining today and be part of our amazing community!</center>
+                </div>
+                <h2></h2>
+                <p></p>
+            </div>
+            <footer class="mt-auto">
+                <p class="font-weight-italic">giv, 2021</p>
+            </footer>
+        </div>
     </body>
 
 </html>

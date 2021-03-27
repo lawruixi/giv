@@ -3,10 +3,36 @@
  * Globals
  */
 
+#about-image-1{
+    background-color: #8CD76E;
+}
 
-/* Custom default button */
-.btn-secondary {
+#about-image-2{
+    background-color: #F2778F;
+}
+
+#about-image-3{
+    background-color: #97C5CC;
+}
+
+#about-image-4{
+    background-color: #F8CE39;
+}
+
+#about-image-5{
+    background-color: #FF76A4;
+}
+
+.bg-dark-green{
     background-color: #307351;
+}
+
+.text-color-black{
+    color:#000000;
+}
+
+.text-color-white{
+    color:#FFFFFF;
 }
 
 .btn-secondary:hover,

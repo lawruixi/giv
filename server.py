@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import flask
 from flask import render_template, request;
 from flask_mysqldb import MySQL;
@@ -17,17 +18,17 @@ def home():
 
 @app.route('/about', methods=["GET", "POST"])
 def about():
-    if(request.method == "POST" and "username" in request.form):
-        details = request.form;
-        username = details["username"];
-        try:
-            cur = mysql.connection.cursor();
-            cur.execute("SELECT id, username, email FROM accounts WHERE username = %s", (username,));
-            data = cur.fetchall();
-            cur.close();
-            return render_template('results.html', data=data);
-        except Exception as e:
-            return "MySQL Error" + str(e.args);
+    # if(request.method == "POST" and "username" in request.form):
+        # details = request.form;
+        # username = details["username"];
+        # try:
+            # cur = mysql.connection.cursor();
+            # cur.execute("SELECT username, email FROM user WHERE username = %s", (username,));
+            # data = cur.fetchall();
+            # cur.close();
+            # return render_template('results.html', data=data);
+        # except Exception as e:
+            # return "MySQL Error" + str(e.args);
     return render_template('about.html'); #TODO
 
 @app.route('/<user>')
