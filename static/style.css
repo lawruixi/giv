@@ -23,8 +23,16 @@
     background-color: #FF76A4;
 }
 
+.bg-white{
+    background-color: #FFFFFF;
+}
+
 .bg-dark-green{
     background-color: #307351;
+}
+
+.bg-light-blue{
+    background-color: #B3FFFC;
 }
 
 .text-color-black{
@@ -35,13 +43,45 @@
     color:#FFFFFF;
 }
 
-.btn-secondary:hover,
-.btn-secondary:focus {
+.btn-secondary:focus,
+.btn-secondary:hover {
     color:#fff;
     background-color: #49AE7B;
     text-shadow: none; /* Prevent inheritance from `body` */
+    outline: none;
+    box-shadow: none;
 }
 
+.checkbox-label{
+    background-color: #CEFFBF;
+}
+
+.checkbox-label:hover{
+    background-color: #DDFFD2;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn-check:checked + .checkbox-label{
+    background-color: #419A6D;
+    color: #FFFFFF;
+}
+
+.btn-check:checked + .checkbox-label:hover{
+    background-color: #59B989;
+    color: #FFFFFF;
+}
+
+.checkbox-label:active{
+    box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
+}
+
+/*.btn-check:checked +*/
+/*.btn-outline-secondary:focus,*/
+/*.btn-outline-secondary:hover {*/
+    /*outline: none;*/
+    /*box-shadow: none;*/
+/*}*/
 
 /*
  * Base structure
