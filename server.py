@@ -4,6 +4,8 @@ from flask import render_template, request, flash, session, redirect, url_for;
 from flask_mysqldb import MySQL;
 import MySQLdb.cursors;
 
+import datetime;
+
 app = flask.Flask(__name__);
 app.config['MYSQL_HOST'] = 'localhost';
 app.config['MYSQL_USER'] = 'user';
@@ -87,22 +89,58 @@ def feed():
 
 @app.route('/chatgroup/new', methods=['GET', 'POST'])
 def new_chat_group():
+    #TODO: Images? Multiple mods?
     if(not session.get('logged_in')):
         return redirect(url_for("home"));
     
-    # if(request.method == "POST" and "username" in request.form):
-        # print(request.form);
-        # for t in request.form:
-            # if(t[0][:8] != "btncheck"):
-                # continue;   
-        # username = request.form["username"];
-        # username = "%" + username + "%";
+    if(request.method == "POST" and "name" in request.form):
+        print(request.form);
+        #Keep track of all users in the new group.
+        new_group_users = [session.get('username')];
+        for v in request.form:
+            if "btncheck_" in v:
+                username = v[9:];
+                new_group_users.append(username);
+
+        chat_group_name = request.form["name"][:30];
+        chat_group_desc = None;
+        if("description" in request.form):
+            chat_group_desc = request.form["description"][:100];
+
+        #Get next chat group id by finding the current highest chat group id, then adding 1.
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
+        cursor.execute("SELECT chat_group_id + 1 AS new_chat_group_id FROM chat_group ORDER BY chat_group_id DESC LIMIT 1;");
+        new_chat_group_id = cursor.fetchone()["new_chat_group_id"];
+
+        creation_date = datetime.date.today().strftime("%Y-%m-%d");
+
+        image = None;
+    
+        moderator_username = session["username"];
+
+        #Insert new chat group into database.
+        cursor.execute("INSERT INTO chat_group VALUES (%s, %s, %s, %s, %s, %s)", (new_chat_group_id, chat_group_name, chat_group_desc, image, creation_date, moderator_username));
+
+        #Insert into database all the users info.
+        for username in new_group_users:
+            #Verify they exist.
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,));
+            user = cursor.fetchone();
+            if(user):
+                cursor.execute("INSERT INTO user_chat_info VALUES (%s, %s)", (username, new_chat_group_id));
+
+
+        mysql.connection.commit();
+        cursor.close();
+        return redirect(url_for("feed"));
+
         
     current_user = session.get('username');
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
     cursor.execute("SELECT username FROM user WHERE username <> %s", (current_user,));
     users = cursor.fetchall();
+    cursor.close();
     return render_template("newchatgroup.html", users=users);
     # else:
         # pass;
