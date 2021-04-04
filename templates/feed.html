@@ -35,7 +35,7 @@
                         <a class="btn btn-secondary bg-dark-green text-color-white rounded mt-0 mb-auto ms-auto me-0" type="button" href="/chatgroup/new">+ New</a>
                     </div>
                 {% for chat_group in chat_groups %}
-                        <a href="/feed" class="btn btn-secondary bg-dark-green font-color-white w-100 my-1">{{chat_group["name"]}}</a>
+                    <a href="/chatgroup/{{chat_group['chat_group_id']}}" class="btn btn-hover-light-green w-100 my-1">{{chat_group["name"]}}</a>
                 {% endfor %}
                 </div>
             </div>

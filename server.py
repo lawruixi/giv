@@ -10,8 +10,7 @@ app = flask.Flask(__name__);
 app.config['MYSQL_HOST'] = 'localhost';
 app.config['MYSQL_USER'] = 'user';
 app.config['MYSQL_PASSWORD'] = 'dragon1234';
-app.config['MYSQL_DB'] = 'giv';
-
+app.config['MYSQL_DB'] = 'giv'; 
 app.config['SECRET_KEY'] = "7\xac\xc9\xeeW\x9d\xec^\xf2\xdah\xf5\x8d\x10\x0e\xfc\xdcfY\xd0\x1e\xad\xf98";
 
 mysql = MySQL(app);
@@ -88,7 +87,7 @@ def feed():
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
     query = """
-    SELECT name 
+    SELECT name, chat_group_id 
     FROM chat_group 
     WHERE chat_group_id IN 
 
@@ -108,7 +107,6 @@ def new_chat_group():
         return redirect(url_for("home"));
     
     if(request.method == "POST" and "name" in request.form):
-        print(request.form);
         #Keep track of all users in the new group.
         new_group_users = [session.get('username')];
         for v in request.form:
@@ -168,6 +166,65 @@ def logout():
     session.pop("logged_in", None);
     session.pop("username", None);
     return redirect(url_for("login"));
+
+@app.route('/chatgroup/<int:chat_id>', methods=["GET", "POST"])
+def chatgroup(chat_id):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"));
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
+
+    
+    #Get info about the chat selected.
+    cursor.execute("SELECT * FROM chat_group WHERE chat_group_id = %s", (chat_id,));
+    chat_group = cursor.fetchone();
+
+    #If user is not in chat group, and thus is not authorized to view:
+    current_username = session.get('username');
+
+    cursor.execute("SELECT * FROM user_chat_info WHERE chat_group_id = %s AND username = %s", (chat_id, current_username));
+    valid = cursor.fetchone();
+    
+    if(not valid):
+        #User is not in chat group.
+        return redirect(url_for("feed"));
+
+    #User can view chat group;
+
+    #If user posted message:
+    if(request.method == "POST" and "content" in request.form):
+        #Get highest message id and add one. Like chat group id basically.
+        cursor.execute("SELECT message_id + 1 AS new_message_id FROM message WHERE message.chat_group_id = %s ORDER BY message_id DESC LIMIT 1;", (chat_id,));
+        new_message_id = cursor.fetchone();
+        if(new_message_id):
+            new_message_id = new_message_id["new_message_id"];
+        else:
+            #No messages in chat group yet.
+            new_message_id = 1;
+
+        content = request.form["content"];
+        sender = session.get('username');
+        reply_id = None;
+        time_sent = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        
+        cursor.execute("INSERT INTO message VALUES (%s, %s, %s, %s, %s, %s)", (chat_id, new_message_id, content, sender, reply_id, time_sent))
+        mysql.connection.commit();
+
+    #Get chat group name;
+    chat_name = chat_group["name"]; 
+
+    #Get all members of chat group;
+    cursor.execute("SELECT username FROM user_chat_info WHERE chat_group_id = %s", (chat_id,));
+    users = cursor.fetchall();
+
+    #Get all info about messages;
+    cursor.execute("SELECT * FROM message WHERE chat_group_id = %s ORDER BY time_sent, message_id", (chat_id,));
+    messages = cursor.fetchall();
+
+    cursor.close();
+
+    return render_template("chat.html", current_username=current_username, users=users, messages=messages, chat_name=chat_name);
 
 @app.route('/members')
 def members():

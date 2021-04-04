@@ -6,7 +6,6 @@
 #about-image-1{
     background-color: #8CD76E;
 }
-
 #about-image-2{
     background-color: #F2778F;
 }
@@ -35,12 +34,27 @@
     background-color: #B3FFFC;
 }
 
+.bg-light-green{
+    background-color: #CEFFBF;
+}
+
 .text-color-black{
     color:#000000;
 }
 
 .text-color-white{
     color:#FFFFFF;
+}
+
+.btn-hover-light-green{
+    background-color: #CEFFBF;
+}
+
+.btn-hover-light-green:focus,
+.btn-hover-light-green:hover {
+    background-color: #AFEB9D;
+    outline: none;
+    box-shadow: none;
 }
 
 .btn-secondary:focus,
@@ -57,7 +71,7 @@
 }
 
 .checkbox-label:hover{
-    background-color: #DDFFD2;
+    background-color: #AFEB9D;
     outline: none;
     box-shadow: none;
 }
