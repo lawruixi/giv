@@ -35,7 +35,7 @@ def about():
             # return render_template('results.html', data=data);
         # except Exception as e:
             # return "MySQL Error" + str(e.args);
-    return render_template('about.html'); #TODO
+    return render_template('about.html', logged_in = session.get('logged_in')); #TODO
 
 @app.route('/<user>')
 def welcome(user):
@@ -85,7 +85,21 @@ def login():
 def feed():
     if(not session.get('logged_in')):
         return redirect(url_for("home"));
-    return render_template("feed.html");
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
+    query = """
+    SELECT name 
+    FROM chat_group 
+    WHERE chat_group_id IN 
+
+    (SELECT chat_group_id 
+    FROM user_chat_info 
+    WHERE user_chat_info.username = %s);
+    """;
+    cursor.execute(query, (session.get('username'),));
+    chat_groups = cursor.fetchall();
+
+    return render_template("feed.html", username=session.get('username'), chat_groups=chat_groups);
 
 @app.route('/chatgroup/new', methods=['GET', 'POST'])
 def new_chat_group():
@@ -116,7 +130,7 @@ def new_chat_group():
 
         image = None;
     
-        moderator_username = session["username"];
+        moderator_username = session.get("username");
 
         #Insert new chat group into database.
         cursor.execute("INSERT INTO chat_group VALUES (%s, %s, %s, %s, %s, %s)", (new_chat_group_id, chat_group_name, chat_group_desc, image, creation_date, moderator_username));
@@ -145,6 +159,15 @@ def new_chat_group():
     # else:
         # pass;
     # return render_template("newchatgroup.html");
+
+@app.route('/logout')
+def logout():
+    if(not session.get('logged_in')):
+        #Not even logged in in the first place...
+        return redirect(url_for("login"));
+    session.pop("logged_in", None);
+    session.pop("username", None);
+    return redirect(url_for("login"));
 
 @app.route('/members')
 def members():

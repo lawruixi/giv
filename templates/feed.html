@@ -1,5 +1,5 @@
 <!DOCTYPE HTML> 
-<html class="h-100" style="width: 100vw;">
+<html class="h-100" style="width: 100vw; overflow-x:hidden;">
     <head>
         <title>giv</title>
         <meta charset="utf-8">
@@ -21,30 +21,25 @@
                         <a class="nav-link active" aria-current="page" href="/">Home</a>
                         <a class="nav-link" href="/about">About</a>
                         <a class="nav-link" href="/contact">Contact</a>
-                        <a class="nav-link" href="/login">Sign Out</a>
+                        <a class="nav-link" href="/logout">Sign Out</a>
                     </nav>
                 </div>
             </header>
 
-            <div class="d-flex flex-column">
-                <div class="d-flex flex-row h-25">
-                    <!--<img src="../static/group_chat_icon.png" class="float-md-start m-0 h-50">-->
-                    <h3 class="mx-2">Chat Groups</h3>
-                    <a class="btn btn-secondary bg-dark-green text-color-white rounded mt-0 mb-auto ms-auto me-0" type="button" href="/chatgroup/new">+ New</a>
-                </div>
-                <div id="create_chat_group_div" style="display: none !important;" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
-                    <input type="checkbox" class="btn-check" id="btncheck1" name="btncheck1" autocomplete="off">
-                    <label class="checkbox-label text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck1" onclick="this.blur();">Checkbox</label>
-                    <!--<div class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1">-->
-                        <!--<div class="d-flex flex-row">-->
-                            <!--<p class="m-0">Username</p>-->
-                            <!--<input class="ms-auto me-0" type="checkbox" id="add_user" name="add_user" value="Add">-->
-                            <!--[><button class="btn btn-secondary ms-auto me-0">Select User</button><]-->
-                        <!--</div>-->
-                    <!--</div>-->
+            <div class="d-flex flex-column my-1">
+                <p class="fst-italic ms-auto me-0">Welcome back, {{username}}</p>
+                <div class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical">
+                    <div class="d-flex flex-row w-100">
+                        <!--<img src="../static/group_chat_icon.png" class="float-md-start m-0 h-50">-->
+                        <h3 class="mx-2">Chat Groups</h3>
+                        <a class="btn btn-secondary bg-dark-green text-color-white rounded mt-0 mb-auto ms-auto me-0" type="button" href="/chatgroup/new">+ New</a>
+                    </div>
+                {% for chat_group in chat_groups %}
+                        <a href="/feed" class="btn btn-secondary bg-dark-green font-color-white w-100 my-1">{{chat_group["name"]}}</a>
+                {% endfor %}
                 </div>
             </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row my-1">
                 <!--<img src="../static/interest_group_icon.png" class="float-md-start m-0 h-25">-->
                 <h3 class="mx-2">Interest Groups</h3>
                 <button class="btn btn-secondary bg-dark-green text-color-white rounded mt-0 mb-auto ms-auto me-0" type="button" onclick="this.blur();">+ New</button>
