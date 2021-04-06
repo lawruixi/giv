@@ -29,11 +29,11 @@ def about():
         # try:
             # cur = mysql.connection.cursor()
             # cur.execute("SELECT username, email FROM user WHERE username = %s", (username,))
-            # data = cur.fetchall()
-            # cur.close()
-            # return render_template('results.html', data=data)
-        # except Exception as e:
-            # return "MySQL Error" + str(e.args)
+        # data = cur.fetchall()
+        # cur.close()
+        # return render_template('results.html', data=data)
+    # except Exception as e:
+        # return "MySQL Error" + str(e.args)
     return render_template('about.html', logged_in = session.get('logged_in')); #TODO
 
 @app.route('/<user>')
@@ -159,7 +159,7 @@ def new_chat_group():
     # return render_template("newchatgroup.html")
 
 @app.route('/chatgroup/<int:chat_id>', methods=["GET", "POST"])
-def chatgroup(chat_id):
+def chat_group(chat_id):
     if(not session.get('logged_in')):
         #Not even logged in...
         return redirect(url_for("login"))
@@ -243,6 +243,32 @@ def new_interest_group():
 
     cursor.close()
     return render_template("newinterestgroup.html", interest_groups=interest_groups)
+
+@app.route('/interestgroup/create', methods=['GET', 'POST'])
+def create_interest_group():
+    if(request.method == "POST" and "interest_group_name" in request.form):
+        interest_group_name = request.form.get("interest_group_name");
+        interest_group_desc = request.form.get("interest_group_description");
+        creation_date = datetime.date.today().strftime("%Y-%m-%d")
+
+        cursor = mysql.connection.cursor()
+        #Check if interest group already exists.
+        cursor.execute("SELECT name FROM interest_group WHERE name=%s", (interest_group_name,));
+        invalid = cursor.fetchone();
+        if(invalid):
+            flash("Interest group already exists!")
+            return render_template("createinterestgroup.html");
+
+        cursor.execute("INSERT INTO interest_group VALUES (%s, %s, %s)", (interest_group_name, interest_group_desc, creation_date))
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for("interest_group", interest_group_name=interest_group_name))
+
+    return render_template("createinterestgroup.html");
+
+@app.route('/interestgroup/<string:interest_group_name>')
+def interest_group(interest_group_name):
+    return render_template("feed.html") #TODO
 
 @app.route('/logout')
 def logout():

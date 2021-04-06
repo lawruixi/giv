@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html class="h-100">
+    <head>
+        <title>giv</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Law Rui Xi">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/style.css">
+
+    </head>
+    <body class="h-100">
+        <div class="cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
+            <header class="mb-2 h-25">
+                <div class="h-100">
+                    <!--<h3 class="float-md-start mb-0">giv</h3>-->
+                    <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/logout">Sign Out</a>
+                    </nav>
+                </div>
+            </header>
+            <h2>Create your interest group!</h2>
+            <form method="POST" action="">
+                <div class="d-flex flex-column">
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <p class="ms-2 text-color-red"> {{ messages[0] }} </p>
+                    {% endif %}
+                    {% endwith %}
+                    <input type="text" class="w-100 p-1 m-1" maxlength="100" id="interest_group_name" placeholder="Interest group name..." name="interest_group_name">
+                    <textarea class="w-100 p-1 ps-2 m-1" maxlength="100" id="interest_group_description" placeholder="Interest group description..." name="interest_group_description" style="height: 8rem;"></textarea>
+                    <button class="btn btn-secondary bg-dark-green text-color-white w-25 ms-auto me-0" type="submit">Create!</button>
+                </div>
+            </form>
+            <footer class="mt-auto">
+                <p class="font-weight-italic">giv, 2021</p>
+            </footer>
+        </div>
+    </body>
+</html>
+
