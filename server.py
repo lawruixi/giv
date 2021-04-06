@@ -86,6 +86,7 @@ def feed():
         return redirect(url_for("home"))
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #Grab all chat groups the user is part of.
     query = """
     SELECT name, chat_group_id 
     FROM chat_group 
@@ -98,7 +99,23 @@ def feed():
     cursor.execute(query, (session.get('username'),))
     chat_groups = cursor.fetchall()
 
-    return render_template("feed.html", username=session.get('username'), chat_groups=chat_groups)
+    #Grab all interest groups the user is part of.
+    query = """
+    SELECT * 
+    FROM interest_group
+    WHERE name IN
+
+    (SELECT interest_group
+    FROM interest_group_participants
+    WHERE username = %s);
+    """
+
+    cursor.execute(query, (session.get('username'),))
+    interest_groups = cursor.fetchall()
+
+    cursor.close();
+
+    return render_template("feed.html", username=session.get('username'), chat_groups=chat_groups, interest_groups=interest_groups)
 
 @app.route('/chatgroup/new', methods=['GET', 'POST'])
 def new_chat_group():
@@ -217,11 +234,28 @@ def chat_group(chat_id):
 
     return render_template("chat.html", current_username=current_username, users=users, messages=messages, chat_name=chat_name)
 
-@app.route('/interestgroup/new')
+@app.route('/interestgroup/new', methods=['GET', 'POST'])
 def new_interest_group():
-    current_user = session.get('username')
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    current_username = session.get('username')
+
+    if(request.method == "POST"):
+        #Check which interest group user wants to join.
+        for i in request.form:
+            if(i[:5] == "join_"):
+                interest_group = i[5:];
+                
+                #Verify interest group exists
+                cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group,));
+                valid = cursor.fetchone();
+                if(valid):
+                    cursor.execute("INSERT INTO interest_group_participants VALUES (%s, %s)", (interest_group, current_username))
+                    mysql.connection.commit()
+                    return redirect(url_for("interest_group", interest_group_name=interest_group))
+                else:
+                    break;
+            break; #We're only expecting one value inside the form.
+        flash("Sorry, an unexpected error occurred. Please try again.");
     # query = """
     # SELECT * FROM interest_group
     # WHERE name IN 
@@ -237,9 +271,8 @@ def new_interest_group():
     SELECT *, IF(ig.name IN (SELECT interest_group FROM interest_group_participants WHERE username = %s), 1, 0) AS in_group
     FROM interest_group ig;
     """
-    cursor.execute(query, (current_user,))
+    cursor.execute(query, (current_username,))
     interest_groups = cursor.fetchall()
-    print(interest_groups)
 
     cursor.close()
     return render_template("newinterestgroup.html", interest_groups=interest_groups)

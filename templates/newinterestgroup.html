@@ -25,6 +25,11 @@
                     </nav>
                 </div>
             </header>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <p class="ms-1 text-color-red"> {{ messages[0] }} </p>
+            {% endif %}
+            {% endwith %}
             <div class="d-flex flex-row">
                 <h4 class="w-75 me-1">Search for interest group... </h4>
                 <a href="/interestgroup/create" class="btn btn-secondary bg-dark-green text-color-white w-25 ms-auto me-0">+ Create</a>
@@ -38,7 +43,9 @@
                 <div style="display: flex;" class="interest-group-div flex-row align-items-center w-100 rounded border border-secondary border-2 p-1 my-1">
                     <p class="interest-group-p w-100 text-color-black my-auto">{{interest_group['name']}}</p>
                     {% if interest_group['in_group'] == 0 %}
-                        <a href="/interestgroup/{{interest_group['name']}}" class="interest-group-btn btn btn-secondary bg-dark-green ms-auto me-0">Join</a>
+                        <form method="POST" action="">
+                            <button class="interest-group-btn btn btn-secondary bg-dark-green ms-auto me-0" type="submit" name="join_{{interest_group['name']}}" value="join_{{interest_group['name']}}">Join</button>
+                        </form>
                     {% elif interest_group['in_group'] == 1 %}
                         <label class="interest-group-btn btn bg-white text-color-black ms-auto me-0" style="border-color:#565e64; border-radius: .25rem; cursor:default;">Joined!</label>
                     {% endif %}
