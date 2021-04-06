@@ -158,15 +158,6 @@ def new_chat_group():
         # pass;
     # return render_template("newchatgroup.html");
 
-@app.route('/logout')
-def logout():
-    if(not session.get('logged_in')):
-        #Not even logged in in the first place...
-        return redirect(url_for("login"));
-    session.pop("logged_in", None);
-    session.pop("username", None);
-    return redirect(url_for("login"));
-
 @app.route('/chatgroup/<int:chat_id>', methods=["GET", "POST"])
 def chatgroup(chat_id):
     if(not session.get('logged_in')):
@@ -225,6 +216,35 @@ def chatgroup(chat_id):
     cursor.close();
 
     return render_template("chat.html", current_username=current_username, users=users, messages=messages, chat_name=chat_name);
+
+@app.route('/interestgroup/new')
+def new_interest_group():
+    current_user = session.get('username');
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor);
+    query = """
+    SELECT * FROM interest_group
+    WHERE name IN 
+    (
+        SELECT interest_group
+        FROM interest_group_participants
+        WHERE username <> %s
+    );
+    """
+    cursor.execute(query, (current_user,));
+    interest_groups = cursor.fetchall();
+    cursor.close();
+    return render_template("newinterestgroup.html", interest_groups=interest_groups);
+
+@app.route('/logout')
+def logout():
+    if(not session.get('logged_in')):
+        #Not even logged in in the first place...
+        return redirect(url_for("login"));
+    session.pop("logged_in", None);
+    session.pop("username", None);
+    return redirect(url_for("login"));
+
 
 @app.route('/members')
 def members():

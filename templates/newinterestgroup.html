@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html class="h-100">
+    <head>
+        <title>giv</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Law Rui Xi">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/style.css">
+
+        <script src="../static/newinterestgroup.js"></script>
+
+    </head>
+    <body class="h-100">
+        <div class="cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
+            <header class="mb-2 h-25">
+                <div class="h-100">
+                    <!--<h3 class="float-md-start mb-0">giv</h3>-->
+                    <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link active" aria-current="page" href="/">Home</a>
+                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/login">Sign In</a>
+                    </nav>
+                </div>
+            </header>
+            <h4>Search for interest group... </h4>
+            <div class="d-flex flex-row w-100 my-2">
+                <input class="w-75 me-1 mx-1" type="text" id="interest_group_name" placeholder="Search interest group..." name="interest_group_name" onkeyup="filter_results();">
+                <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results(); this.blur();">Search</button>
+            </div>
+            <div id="create_interest_group_div" class="flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
+                {% for interest_group in interest_groups %}
+                <div style="display: flex;" class="interest-group-div flex-row align-items-center w-100 rounded border border-secondary border-2 p-1 my-1">
+                    <p class="interest-group-p w-100 text-color-black my-auto">{{interest_group['name']}}</p>
+                    <button class="interest-group-btn btn btn-secondary bg-dark-green ms-auto me-0">Join</button>
+                </div>
+                {% endfor %}
+            </div>
+            <footer class="mt-auto">
+                <p class="font-weight-italic">giv, 2021</p>
+            </footer>
+        </div>
+    </body>
+</html>
+

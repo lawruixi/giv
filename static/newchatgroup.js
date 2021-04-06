@@ -9,7 +9,7 @@ function filter_results(){
     }
 
     for(var i = 0; i < checkboxes.length; i++){
-        if(checkboxes[i].id.slice(9).search(query) == -1){
+        if(checkboxes[i].id.slice(9).toLowerCase().search(query.toLowerCase()) == -1){
             checkboxes[i].style.display = "none";
             labels[i].style.display = "none";
         }

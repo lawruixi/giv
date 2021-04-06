@@ -6,5 +6,5 @@ window.onload = function(){
         }
     }
 
-    //document.getElementById("message_textarea").addEventListener("keypress", submitOnShiftEnter);
+    document.getElementById("message_textarea").addEventListener("keypress", submitOnShiftEnter);
 }
