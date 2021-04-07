@@ -183,10 +183,10 @@ def chat_group(chat_id):
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
 
-    
     #Get info about the chat selected.
     cursor.execute("SELECT * FROM chat_group WHERE chat_group_id = %s", (chat_id,))
     chat_group = cursor.fetchone()
+    print(chat_group)
 
     #If user is not in chat group, and thus is not authorized to view:
     current_username = session.get('username')
@@ -221,6 +221,7 @@ def chat_group(chat_id):
 
     #Get chat group name
     chat_name = chat_group["name"]; 
+    chat_description = chat_group["description"];
 
     #Get all members of chat group
     cursor.execute("SELECT username FROM user_chat_info WHERE chat_group_id = %s", (chat_id,))
@@ -232,7 +233,7 @@ def chat_group(chat_id):
 
     cursor.close()
 
-    return render_template("chat.html", current_username=current_username, users=users, messages=messages, chat_name=chat_name)
+    return render_template("chat.html", current_username=current_username, users=users, messages=messages, chat_name=chat_name, chat_description=chat_description)
 
 @app.route('/interestgroup/new', methods=['GET', 'POST'])
 def new_interest_group():
@@ -284,7 +285,7 @@ def create_interest_group():
         interest_group_desc = request.form.get("interest_group_description");
         creation_date = datetime.date.today().strftime("%Y-%m-%d")
 
-        cursor = mysql.connection.cursor()
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         #Check if interest group already exists.
         cursor.execute("SELECT name FROM interest_group WHERE name=%s", (interest_group_name,));
         invalid = cursor.fetchone();
@@ -301,7 +302,18 @@ def create_interest_group():
 
 @app.route('/interestgroup/<string:interest_group_name>')
 def interest_group(interest_group_name):
-    return render_template("feed.html") #TODO
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
+    interest_group = cursor.fetchone();
+        
+    if(not interest_group):
+        return redirect(url_for("feed"));
+
+    #Get all posts in the interest group.
+    cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %s", (interest_group_name,));
+    posts = cursor.fetchall();
+
+    return render_template("interestgroup.html", interest_group=interest_group, posts=posts);
 
 @app.route('/logout')
 def logout():

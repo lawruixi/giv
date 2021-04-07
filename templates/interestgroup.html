@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html class="h-100" style="width: 100vw; overflow-x: hidden;">
+    <head>
+        <title>giv</title>
+        <meta charset="utf-8">
+        <meta name="author" content="Law Rui Xi">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link rel="stylesheet" href="../static/style.css">
+
+        <script src="../static/interest_group.js"></script>
+
+    </head>
+    <body class="h-100">
+        <div class="cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
+            <header class="mb-2 h-25">
+                <div class="h-100">
+                    <!--<h3 class="float-md-start mb-0">giv</h3>-->
+                    <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link" href="/">Home</a>
+                        <a class="nav-link" href="/about">About</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+                        <a class="nav-link" href="/logout">Sign Out</a>
+                    </nav>
+                </div>
+            </header>
+            <div class="d-flex flex-column">
+                <h2 class="mx-auto">Welcome to the {{interest_group['name']}} Interest Group!</h2>
+                <h4 class="mx-auto">{{interest_group['description']}}</h4>
+
+                {% for post in posts %}
+                <div class="post-div d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2 p-2" onclick="location.href='/interestgroup/{{interest_group['name']}}/post/{{post['post_id']}}'" style="cursor: pointer;">
+                        <div class="d-flex flex-row">
+                            <p class="fst-italic"><strong>{{post['posted_by']}}</strong> posted...</p>
+                            <p class="fst-italic ms-auto me-0">{{post['posting_time']}}</p>
+                        </div>
+                        <h3> {{post['content']}} </h3>
+                        <div class="d-flex flex-row align-items-center">
+                            <input class="mx-1" style="height: 1rem;" type="image" src="../static/view.png"></input>
+                            <p class="my-auto">{{post['views']}}</p>
+                            <input class="mx-1 ms-3" style="height: 1rem;" type="image" src="../static/like.png"></input>
+                            <p class="my-auto">{{post['likes']}}</p>
+                            <!--TODO: count and show comments?-->
+                        </div>
+                    </div>
+    <script>
+        
+    </script>
+                {% endfor %}
+            </div>
+            <footer class="mt-auto">
+                <p class="font-weight-italic">giv, 2021</p>
+            </footer>
+        </div>
+
+    </body>
+</html>
