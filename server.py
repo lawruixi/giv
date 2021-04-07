@@ -237,6 +237,10 @@ def chat_group(chat_id):
 
 @app.route('/interestgroup/new', methods=['GET', 'POST'])
 def new_interest_group():
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     current_username = session.get('username')
 
@@ -280,6 +284,10 @@ def new_interest_group():
 
 @app.route('/interestgroup/create', methods=['GET', 'POST'])
 def create_interest_group():
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
     if(request.method == "POST" and "interest_group_name" in request.form):
         interest_group_name = request.form.get("interest_group_name");
         interest_group_desc = request.form.get("interest_group_description");
@@ -302,6 +310,10 @@ def create_interest_group():
 
 @app.route('/interestgroup/<string:interest_group_name>')
 def interest_group(interest_group_name):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
     interest_group = cursor.fetchone();
@@ -316,8 +328,12 @@ def interest_group(interest_group_name):
 
     return render_template("interestgroup.html", interest_group=interest_group, posts=posts);
 
-@app.route('/interestgroup/<string:interest_group_name>/post/<int:post_id>')
+@app.route('/interestgroup/<string:interest_group_name>/post/<int:post_id>', methods=['GET', 'POST'])
 def post(interest_group_name, post_id):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
     interest_group = cursor.fetchone();
@@ -332,6 +348,25 @@ def post(interest_group_name, post_id):
     #If post does not exist:
     if(not post):
         return redirect(url_for("feed"));
+
+    #Handle user comment
+    if(request.method == "POST" and "content" in request.form):
+        #Get highest message id and add one. Like chat group id basically.
+        cursor.execute("SELECT comment_id + 1 AS new_comment_id FROM comment WHERE comment.post_id = %s ORDER BY comment_id DESC LIMIT 1;", (post_id,))
+        new_comment_id = cursor.fetchone()
+        if(new_comment_id):
+            new_comment_id = new_comment_id["new_comment_id"]
+        else:
+            #No messages in chat group yet.
+            new_comment_id = 1
+
+        time_commented = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        content = request.form["content"]
+        reply_id = None
+        posted_by = session.get('username')
+        
+        cursor.execute("INSERT INTO comment VALUES (%s, %s, %s, %s, %s, %s)", (post_id, new_comment_id, time_commented, content, reply_id, posted_by))
+        mysql.connection.commit()
 
     #Get comments about post:
     cursor.execute("SELECT * FROM comment WHERE post_id = %s", (post_id,));
