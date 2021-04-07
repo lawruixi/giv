@@ -224,7 +224,14 @@ def chat_group(chat_id):
     chat_description = chat_group["description"];
 
     #Get all members of chat group
-    cursor.execute("SELECT username FROM user_chat_info WHERE chat_group_id = %s", (chat_id,))
+    # cursor.execute("SELECT username FROM user_chat_info WHERE chat_group_id = %s", (chat_id,))
+
+    query = """
+    SELECT username, IF(username IN (SELECT username FROM chat_group_moderators WHERE chat_group_id = %s), 1, 0) as is_mod
+    FROM user_chat_info
+    WHERE chat_group_id = %s
+    """
+    cursor.execute(query, (chat_id, chat_id));
     users = cursor.fetchall()
 
     #Get all info about messages
