@@ -14,7 +14,7 @@
             <header class="mb-2 h-25">
                 <div class="h-100">
                     <!--<h3 class="float-md-start mb-0">giv</h3>-->
-                    <img class="float-md-start mb-0 h-75" src="../static/giv.png" alt="giv">
+                    <img class="float-md-start mb-0 h-75" src="{{url_for('static', filename='giv.png')}}" alt="giv">
                     <nav class="nav nav-masthead justify-content-center float-md-end">
                         <a class="nav-link" href="/">Home</a>
                         <a class="nav-link" href="/about">About</a>
@@ -30,9 +30,9 @@
                 </div>
                 <h3> {{post['content']}} </h3>
                 <div class="d-flex flex-row align-items-center">
-                    <input class="mx-1" style="height: 1rem;" type="image" src="../static/view.png"></input>
+                    <input class="mx-1" style="height: 1rem;" type="image" src="{{url_for('static', filename='view.png')}}"></input>
                     <p class="my-auto">{{post['views']}}</p>
-                    <input class="mx-1 ms-3" style="height: 1rem;" type="image" src="../static/like.png"></input>
+                    <input class="mx-1 ms-3" style="height: 1rem;" type="image" src="{{url_for('static', filename='like.png')}}"></input>
                     <p class="my-auto">{{post['likes']}}</p>
                     <!--TODO: count and show comments?-->
                 </div>
