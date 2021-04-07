@@ -306,6 +306,7 @@ def interest_group(interest_group_name):
     cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
     interest_group = cursor.fetchone();
         
+    #If interest group does not exist:
     if(not interest_group):
         return redirect(url_for("feed"));
 
@@ -314,6 +315,29 @@ def interest_group(interest_group_name):
     posts = cursor.fetchall();
 
     return render_template("interestgroup.html", interest_group=interest_group, posts=posts);
+
+@app.route('/interestgroup/<string:interest_group_name>/post/<int:post_id>')
+def post(interest_group_name, post_id):
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
+    interest_group = cursor.fetchone();
+        
+    #If interest group does not exist:
+    if(not interest_group):
+        return redirect(url_for("feed"));
+
+    cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE interest_group = %s AND post.post_id = %s", (interest_group_name, post_id));
+    post = cursor.fetchone(); #Get post
+
+    #If post does not exist:
+    if(not post):
+        return redirect(url_for("feed"));
+
+    #Get comments about post:
+    cursor.execute("SELECT * FROM comment WHERE post_id = %s", (post_id,));
+    comments = cursor.fetchall(); #Get post
+
+    return render_template("post.html", post=post, comments=comments);
 
 @app.route('/logout')
 def logout():

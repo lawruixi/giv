@@ -23,7 +23,7 @@
                     </nav>
                 </div>
             </header>
-            <div class="post-div d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2 p-2">
+            <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2 p-2">
                 <div class="d-flex flex-row">
                     <p class="fst-italic"><strong>{{post['posted_by']}}</strong> posted...</p>
                     <p class="fst-italic ms-auto me-0">{{post['posting_time']}}</p>
@@ -34,8 +34,20 @@
                     <p class="my-auto">{{post['views']}}</p>
                     <input class="mx-1 ms-3" style="height: 1rem;" type="image" src="{{url_for('static', filename='like.png')}}"></input>
                     <p class="my-auto">{{post['likes']}}</p>
-                    <!--TODO: count and show comments?-->
                 </div>
+            </div>
+            <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2">
+                <h5 class="m-1">Comments</h5>
+                <!--TODO: nested comments oh boi-->
+                {% for comment in comments %}
+                    <div class="d-flex flex-column w-100 border-top border-3 border-secondary p-1">
+                        <div class="d-flex flex-row">
+                            <p class="fst-italic fw-bold mt-0 mb-0">{{comment['posted_by']}}</p>
+                            <p class="fst-italic ms-auto me-0 mt-0 mb-0">{{comment['commenting_time']}}</p>
+                        </div>
+                        <p class="mt-0 mb-0">{{comment['content']}}</p>
+                    </div>
+                {% endfor %}
             </div>
             <footer class="mt-auto">
                 <p class="font-weight-italic">giv, 2021</p>
