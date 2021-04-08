@@ -121,7 +121,7 @@ def feed():
 def new_chat_group():
     #TODO: Images? Multiple mods?
     if(not session.get('logged_in')):
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
     
     if(request.method == "POST" and "name" in request.form):
         #Keep track of all users in the new group.
@@ -219,20 +219,21 @@ def chat_group(chat_id):
         cursor.execute("INSERT INTO message VALUES (%s, %s, %s, %s, %s, %s)", (chat_id, new_message_id, content, sender, reply_id, time_sent))
         mysql.connection.commit()
 
-    #Get chat group name
-    chat_name = chat_group["name"]; 
-    chat_description = chat_group["description"];
-
     #Get all members of chat group
     # cursor.execute("SELECT username FROM user_chat_info WHERE chat_group_id = %s", (chat_id,))
 
     query = """
     SELECT username, IF(username IN (SELECT username FROM chat_group_moderators WHERE chat_group_id = %s), 1, 0) as is_mod
     FROM user_chat_info
-    WHERE chat_group_id = %s
+    WHERE chat_group_id = %s 
     """
     cursor.execute(query, (chat_id, chat_id));
     users = cursor.fetchall()
+
+    #Get current user in this chat group.
+    query += "AND username = %s";
+    cursor.execute(query, (chat_id, chat_id, current_username))
+    current_user = cursor.fetchone();
 
     #Get all info about messages
     cursor.execute("SELECT * FROM message WHERE chat_group_id = %s ORDER BY time_sent, message_id", (chat_id,))
@@ -240,7 +241,81 @@ def chat_group(chat_id):
 
     cursor.close()
 
-    return render_template("chat.html", current_username=current_username, users=users, messages=messages, chat_name=chat_name, chat_description=chat_description)
+    return render_template("chat.html", current_user=current_user, users=users, messages=messages, chat_group=chat_group)
+
+@app.route('/chatgroup/<int:chat_id>/edit', methods=["GET", "POST"])
+def edit_chat_group(chat_id):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    #Get info about the chat selected.
+    cursor.execute("SELECT * FROM chat_group WHERE chat_group_id = %s", (chat_id,))
+    chat_group = cursor.fetchone()
+    print(chat_group)
+
+    #If user is moderator of chat group.
+    current_username = session.get('username')
+
+    cursor.execute("SELECT * FROM chat_group_moderators WHERE chat_group_id = %s AND username = %s", (chat_id, current_username))
+    valid = cursor.fetchone()
+    
+    if(not valid):
+        #User is not moderating chat group.
+        return redirect(url_for("chat_group", chat_id=chat_id))
+    
+    if(request.method == "POST" and "name" in request.form):
+        #Keep track of all users in the new group.
+        new_group_users = []
+        for v in request.form:
+            if "btncheck_" in v:
+                username = v[9:]
+                new_group_users.append(username)
+
+        chat_group_name = request.form["name"][:30]
+        chat_group_desc = None
+        if("description" in request.form):
+            chat_group_desc = request.form["description"][:100]
+
+        #Update into database new info.
+        cursor.execute("UPDATE chat_group SET name = %s, description = %s WHERE chat_group_id = %s", (chat_group_name, chat_group_desc, chat_id));
+        #Insert into database all the new users info.
+        for username in new_group_users:
+            #Verify they exist.
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("INSERT INTO user_chat_info VALUES (%s, %s)", (username, chat_id))
+
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for("chat_group", chat_id=chat_id))
+        
+    #Get not added users
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    query = """
+    SELECT username 
+    FROM user 
+    WHERE username <> %s AND username NOT IN
+    (SELECT username FROM 
+    user_chat_info WHERE chat_group_id = %s)
+    """
+    cursor.execute(query, (current_username, chat_id))
+    not_added_users = cursor.fetchall()
+
+    #Now get added users
+    query = """
+    SELECT username 
+    FROM user_chat_info
+    WHERE username <> %s AND chat_group_id = %s
+    """
+    cursor.execute(query, (current_username, chat_id))
+    added_users = cursor.fetchall();
+
+    cursor.close()
+    return render_template("editchatgroup.html", not_added_users=not_added_users, added_users=added_users, chat_group=chat_group)
 
 @app.route('/interestgroup/new', methods=['GET', 'POST'])
 def new_interest_group():

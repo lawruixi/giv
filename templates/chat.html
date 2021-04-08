@@ -38,8 +38,15 @@
                 </div>
                 <div class="d-flex flex-column w-75 text-color-black ps-1" style="height:70vh;">
                     <div class="d-flex flex-column w-100" style="overflow-y: scroll;">
-                        <h4>{{chat_name}}</h4>
-                        <h6>{{chat_description}}</h6>
+                        <div class="d-flex flex-row w-100">
+                            <h4>{{chat_group['name']}}</h4>
+                            {% if current_user['is_mod'] %}
+                            <a class="ms-auto me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/edit">
+                                <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='edit.png')}}" style="height:1.5rem;"></img>
+                            </a>
+                            {% endif %}
+                        </div>
+                        <h6>{{chat_group['description']}}</h6>
                         {% for message in messages %}
                             <div class="d-flex flex-column rounded bg-white text-color-black p-1 border border-2 border-secondary">
                                 <div class="d-flex flex-row">
