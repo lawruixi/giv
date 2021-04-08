@@ -28,6 +28,7 @@
             <div class="d-flex flex-column">
                 <h2 class="mx-auto">Welcome to the {{interest_group['name']}} Interest Group!</h2>
                 <h4 class="mx-auto">{{interest_group['description']}}</h4>
+                <a href="/interestgroup/{{interest_group['name']}}/post/new" class="w-100 m-2 p-2 btn btn-secondary bg-dark-green text-color-white fs-3">+ Post</a>
 
                 {% for post in posts %}
                 <div class="post-div d-flex flex-column w-100 rounded border border-3 border-secondary bg-light-light-green text-color-black m-2 p-2" onclick="location.href='/interestgroup/{{interest_group['name']}}/post/{{post['post_id']}}'" style="cursor: pointer;">
@@ -35,7 +36,7 @@
                             <p class="fst-italic"><strong>{{post['posted_by']}}</strong> posted...</p>
                             <p class="fst-italic ms-auto me-0">{{post['posting_time']}}</p>
                         </div>
-                        <h3> {{post['content']}} </h3>
+                        <h3> {{post['title']}} </h3>
                         <div class="d-flex flex-row align-items-center">
                             <input class="mx-1" style="height: 1rem;" type="image" src="{{url_for('static', filename='view.png')}}"></input>
                             <p class="my-auto">{{post['views']}}</p>

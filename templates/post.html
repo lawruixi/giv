@@ -29,7 +29,10 @@
                     <p class="fst-italic"><strong>{{post['posted_by']}}</strong> posted...</p>
                     <p class="fst-italic ms-auto me-0">{{post['posting_time']}}</p>
                 </div>
-                <h3> {{post['content']}} </h3>
+                <h3> {{post['title']}} </h3>
+                {% if post['content'] != None %}
+                <p class="m-1">{{post['content']}}</p>
+                {% endif %}
                 <div class="d-flex flex-row align-items-center">
                     <input class="mx-1" style="height: 1rem;" type="image" src="{{url_for('static', filename='view.png')}}"></input>
                     <p class="my-auto">{{post['views']}}</p>

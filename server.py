@@ -455,6 +455,38 @@ def interest_group(interest_group_name):
 
     return render_template("interestgroup.html", interest_group=interest_group, posts=posts);
 
+@app.route('/interestgroup/<string:interest_group_name>/post/new', methods=['GET', 'POST'])
+def createpost(interest_group_name):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
+    if(request.method == "POST" and "title" in request.form):
+        current_username = session.get('username')
+        cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
+        interest_group = cursor.fetchone();
+
+        if(interest_group):
+            #interest group exists, posting is allowed
+            cursor.execute("SELECT post_id + 1 AS new_post_id FROM post ORDER BY post_id DESC LIMIT 1;")
+            post_id = cursor.fetchone()["new_post_id"];
+
+            posting_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            post_title = request.form['title'];
+            post_content = request.form['content'];
+            views = 0;
+            likes = 0;
+            posted_by = current_username;
+
+            cursor.execute("INSERT INTO post VALUES (%s, %s, %s, %s, %s, %s, %s)", (post_id, posting_time, posting_time, post_content, views, likes, posted_by))
+            cursor.execute("INSERT INTO posting_info VALUES (%s, %s, %s)", (post_id, interest_group_name, current_username));
+            mysql.connection.commit()
+            cursor.close();
+            return redirect(url_for("post", interest_group_name=interest_group_name, post_id=post_id))
+
+    return render_template("createpost.html");
+
 @app.route('/interestgroup/<string:interest_group_name>/post/<int:post_id>', methods=['GET', 'POST'])
 def post(interest_group_name, post_id):
     if(not session.get('logged_in')):
