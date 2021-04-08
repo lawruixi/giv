@@ -114,6 +114,26 @@
     background-color: #FFFFFF;
 }
 
+.checkbox-label-dismiss{
+    background-color: #6C757D;
+    color: #FFFFFF;
+}
+
+.checkbox-label-dismiss:hover{
+    background-color: #838C93;
+    color: #FFFFFF;
+}
+
+.btn-check-dismiss:checked + .checkbox-label-dismiss{
+    color: #6C757D;
+    background-color: #FFFFFF;
+}
+
+.btn-check-dismiss:checked + .checkbox-dismiss:hover{
+    color:#838C93;
+    background-color: #FFFFFF;
+}
+
 .checkbox-label-remove{
     background-color: #DC3545;
     color: #FFFFFF;

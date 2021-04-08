@@ -269,6 +269,7 @@ def edit_chat_group(chat_id):
         new_group_users = []
         deleted_users = []
         new_group_moderators = []
+        dismissed_moderators = []
         for v in request.form:
             if "btncheck_a_" in v:
                 username = v[11:]
@@ -279,6 +280,9 @@ def edit_chat_group(chat_id):
             elif "btncheck_m_" in v:
                 username = v[11:]
                 new_group_moderators.append(username);
+            elif "btncheck_d_" in v:
+                username = v[11:]
+                dismissed_moderators.append(username);
 
         chat_group_name = request.form["name"][:30]
         chat_group_desc = None
@@ -302,6 +306,18 @@ def edit_chat_group(chat_id):
             if(user):
                 cursor.execute("DELETE FROM user_chat_info WHERE username = %s and chat_group_id = %s", (username, chat_id))
 
+        for username in new_group_moderators:
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("INSERT INTO chat_group_moderators VALUES (%s, %s)", (chat_id, username));
+
+        for username in dismissed_moderators:
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("DELETE FROM chat_group_moderators WHERE chat_group_id = %s AND username = %s", (chat_id, username))
+
         mysql.connection.commit()
         cursor.close()
         return redirect(url_for("chat_group", chat_id=chat_id))
@@ -320,11 +336,11 @@ def edit_chat_group(chat_id):
 
     #Now get added users
     query = """
-    SELECT username 
+    SELECT username, IF(username IN (SELECT username FROM chat_group_moderators WHERE chat_group_id = %s), 1, 0) as is_mod
     FROM user_chat_info
     WHERE username <> %s AND chat_group_id = %s
     """
-    cursor.execute(query, (current_username, chat_id))
+    cursor.execute(query, (chat_id, current_username, chat_id))
     added_users = cursor.fetchall();
 
     cursor.close()

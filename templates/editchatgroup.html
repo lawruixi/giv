@@ -47,8 +47,13 @@
                     <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
                         <p class="manage-p my-auto">{{user['username']}}</p>
                         <div class="btn-group w-50 ms-auto me-0" role="group">
+                            {% if user['is_mod'] == 1 %}
+                            <input type="checkbox" class="btn-check btn-check-dismiss" id="btncheck_d_{{user['username']}}" name="btncheck_d_{{user['username']}}" autocomplete="off">
+                            <label class="noselect text-center checkbox-label-dismiss text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_d_{{user['username']}}" onclick="this.blur();">Dismiss Moderator</label>
+                            {% else %}
                             <input type="checkbox" class="btn-check btn-check-moderator" id="btncheck_m_{{user['username']}}" name="btncheck_m_{{user['username']}}" autocomplete="off">
                             <label class="noselect text-center checkbox-label-moderator text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_m_{{user['username']}}" onclick="this.blur();">Make Moderator</label>
+                            {% endif %}
                             <input type="checkbox" class="btn-check btn-check-remove" id="btncheck_r_{{user['username']}}" name="btncheck_r_{{user['username']}}" autocomplete="off">
                             <label class="noselect text-center checkbox-label checkbox-label-remove text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_r_{{user['username']}}" onclick="this.blur();">Remove from Group</label>
                         </div>
