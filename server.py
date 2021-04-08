@@ -80,10 +80,69 @@ def login():
             return render_template('login.html')
     return render_template('login.html')
 
+@app.route('/profile')
+def profile_self():
+    if(not session.get('logged_in')):
+        return redirect(url_for("login"))
+
+    current_username = session.get('username')
+    #Get information about self
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM user WHERE username = %s", (current_username,))
+    user = cursor.fetchone();
+
+    return render_template("profile_self.html", user=user)
+
+@app.route('/profile/<string:username>', methods=['GET', 'POST'])
+def profile(username):
+    logged_in = session.get('logged_in')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    
+    if(request.method == "POST"):
+        if(not logged_in): return redirect(url_for("home"));
+
+        current_username = session.get('username')
+
+        #Verify followee exists.
+        cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+        user = cursor.fetchone();
+        if(user):
+            #Now check if already following.
+            cursor.execute("SELECT * FROM follow WHERE following = %s AND follower = %s", (username, current_username));
+            valid = cursor.fetchone();
+            is_following = False;
+            if(valid): is_following = True;
+            
+            if(is_following):
+                cursor.execute("DELETE FROM follow WHERE following = %s AND follower = %s", (username, current_username))
+            else:
+                #if not already following
+                cursor.execute("INSERT INTO follow (following, follower) VALUES (%s, %s)", (username, current_username))
+            #already following; unfollow.
+            mysql.connection.commit()
+            
+
+    #Get information about user
+    cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+    user = cursor.fetchone();
+    if(not user):
+        #User doesn't exist
+        return redirect(url_for("home")) #TODO:404?
+
+    #Check if user is currently being followed already.
+    is_following = False;
+    if(logged_in):
+        current_username = session.get('username');
+        cursor.execute("SELECT * FROM follow WHERE following = %s AND follower = %s", (username, current_username))
+        valid = cursor.fetchone();
+        if(valid): is_following = True;
+
+    return render_template("profile.html", user=user, logged_in=logged_in, is_following=is_following)
+
 @app.route('/feed')
 def feed():
     if(not session.get('logged_in')):
-        return redirect(url_for("home"))
+        return redirect(url_for("login"))
 
     current_username = session.get('username')
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
