@@ -26,7 +26,7 @@
                 </div>
             </header>
             <form class="p-2" method="POST" action="" onsubmit="return validate_form();">
-                <h4>Add users:</h4>
+                <h4 class="my-1">Add users:</h4>
                 <div class="d-flex flex-row w-100 my-2">
                     <input class="w-75 me-1 mx-1" type="text" id="username-add" placeholder="Search user..." name="username-add" onkeyup="filter_results_add();">
                     <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results(); this.blur();">Search</button>
@@ -37,15 +37,25 @@
                         <label class="checkbox-label checkbox-label-add text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_a_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
                     {% endfor %}
                 </div>
-                <h4> Remove users: </h4>
+                <h4 class="my-1"> Manage users: </h4>
                 <div class="d-flex flex-row w-100 my-2">
-                    <input class="w-75 me-1 mx-1" type="text" id="username-remove" placeholder="Search user..." name="username-remove" onkeyup="filter_results_remove();">
-                    <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results(); this.blur();">Search</button>
+                    <input class="w-75 me-1 mx-1" type="text" id="username-manage" placeholder="Search user..." name="username-manage" onkeyup="filter_results_manage();">
+                    <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results_manage(); this.blur();">Search</button>
                 </div>
                 <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
                     {% for user in added_users %}
-                        <input type="checkbox" class="btn-check btn-check-remove" id="btncheck_r_{{user['username']}}" name="btncheck_r_{{user['username']}}" autocomplete="off">
-                        <label class="checkbox-label checkbox-label-remove text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_r_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
+                    <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
+                        <p class="manage-p my-auto">{{user['username']}}</p>
+                        <div class="btn-group w-50 ms-auto me-0" role="group">
+                            <input type="checkbox" class="btn-check btn-check-moderator" id="btncheck_m_{{user['username']}}" name="btncheck_m_{{user['username']}}" autocomplete="off">
+                            <label class="noselect text-center checkbox-label-moderator text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_m_{{user['username']}}" onclick="this.blur();">Make Moderator</label>
+                            <input type="checkbox" class="btn-check btn-check-remove" id="btncheck_r_{{user['username']}}" name="btncheck_r_{{user['username']}}" autocomplete="off">
+                            <label class="noselect text-center checkbox-label checkbox-label-remove text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_r_{{user['username']}}" onclick="this.blur();">Remove from Group</label>
+                        </div>
+                        <!--<input type="radio" class="btn btn-check bg-dark-green px-1 py-0 ms-auto me-0" style="font-size: 0.75rem;" name="radio_moderator_{{user['username']}}" id="radio_moderator_{{user['username']}}">-->
+                        <!--<label class="text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="radio_moderator_{{user['username']}}">Make Moderator</label>-->
+                        <!--<button type="button" class="btn btn-danger px-1 py-0 ms-1 me-0" style="font-size: 0.75rem;">Remove from Chat</button>-->
+                    </div>
                     {% endfor %}
                 </div>
                 <div class="d-flex flex-column w-100 my-2">

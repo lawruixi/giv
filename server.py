@@ -268,6 +268,7 @@ def edit_chat_group(chat_id):
         #Keep track of all users in the new group.
         new_group_users = []
         deleted_users = []
+        new_group_moderators = []
         for v in request.form:
             if "btncheck_a_" in v:
                 username = v[11:]
@@ -275,6 +276,9 @@ def edit_chat_group(chat_id):
             elif "btncheck_r_" in v:
                 username = v[11:]
                 deleted_users.append(username);
+            elif "btncheck_m_" in v:
+                username = v[11:]
+                new_group_moderators.append(username);
 
         chat_group_name = request.form["name"][:30]
         chat_group_desc = None

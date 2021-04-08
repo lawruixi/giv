@@ -90,10 +90,69 @@
     color: #FFFFFF;
 }
 
+.btn-check-moderator{
+    clip: rect(0, 0, 0, 0);
+}
+
+.checkbox-label-moderator{
+    background-color: #307351;
+    color: #FFFFFF;
+}
+
+.checkbox-label-moderator:hover{
+    background-color: #49AE7B;
+    color: #FFFFFF;
+}
+
+.btn-check-moderator:checked + .checkbox-label-moderator{
+    color: #419A6D;
+    background-color: #FFFFFF;
+}
+
+.btn-check-moderator:checked + .checkbox-label-moderator:hover{
+    color: #59B989;
+    background-color: #FFFFFF;
+}
+
+.checkbox-label-remove{
+    background-color: #DC3545;
+    color: #FFFFFF;
+}
+
+.checkbox-label-remove:hover{
+    background-color: #E15765;
+    color: #FFFFFF;
+}
+
+.btn-check-remove:checked + .checkbox-label-remove{
+    color: #DC3545;
+    background-color: #FFFFFF;
+}
+
+.btn-check-remove:checked + .checkbox-label-remove:hover{
+    color: #E15765;
+    background-color: #FFFFFF;
+}
+
 .checkbox-label:active{
     box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
 }
 
+.manage-users-div{
+    background-color: #CEFFBF;
+    outline: none;
+    box-shadow:none;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
 /*.btn-check:checked +*/
 /*.btn-outline-secondary:focus,*/
 /*.btn-outline-secondary:hover {*/
