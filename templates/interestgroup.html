@@ -30,7 +30,7 @@
                 <h4 class="mx-auto">{{interest_group['description']}}</h4>
 
                 {% for post in posts %}
-                <div class="post-div d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2 p-2" onclick="location.href='/interestgroup/{{interest_group['name']}}/post/{{post['post_id']}}'" style="cursor: pointer;">
+                <div class="post-div d-flex flex-column w-100 rounded border border-3 border-secondary bg-light-light-green text-color-black m-2 p-2" onclick="location.href='/interestgroup/{{interest_group['name']}}/post/{{post['post_id']}}'" style="cursor: pointer;">
                         <div class="d-flex flex-row">
                             <p class="fst-italic"><strong>{{post['posted_by']}}</strong> posted...</p>
                             <p class="fst-italic ms-auto me-0">{{post['posting_time']}}</p>

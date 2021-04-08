@@ -28,23 +28,23 @@
 
             <p class="fst-italic ms-auto me-0">Welcome back, {{username}}</p>
             <div class="d-flex flex-column my-1">
-                <div class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 m-1 btn-group-vertical">
+                <div class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 m-1 btn-group-vertical">
                     <div class="d-flex flex-row w-100">
                         <!--<img src="../static/group_chat_icon.png" class="float-md-start m-0 h-50">-->
                         <h3 class="mx-2">Chat Groups</h3>
                         <a class="btn btn-secondary bg-dark-green text-color-white rounded mt-0 mb-auto ms-auto me-0" type="button" href="/chatgroup/new">+ New</a>
                     </div>
                     {% for chat_group in chat_groups %}
-                    <a href="/chatgroup/{{chat_group['chat_group_id']}}" class="btn btn-hover-light-green w-100 my-1">{{chat_group["name"]}}</a>
+                    <a href="/chatgroup/{{chat_group['chat_group_id']}}" class="btn btn-hover-light-green border border-2 border-secondary w-100 my-1">{{chat_group["name"]}}</a>
                     {% endfor %}
                 </div>
-                <div class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 m-1 btn-group-vertical">
+                <div class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 m-1 btn-group-vertical">
                     <div class="d-flex flex-row w-100">
                         <h3 class="mx-2">Interest Groups</h3>
                         <a class="btn btn-secondary bg-dark-green text-color-white rounded mt-0 mb-auto ms-auto me-0" type="button" href="/interestgroup/new">+ New</a>
                     </div>
                     {% for interest_group in interest_groups %}
-                    <a href="/interestgroup/{{interest_group['name']}}" class="btn btn-hover-light-green w-100 my-1">{{interest_group["name"]}}</a>
+                    <a href="/interestgroup/{{interest_group['name']}}" class="btn btn-hover-light-green border border-2 border-secondary w-100 my-1">{{interest_group["name"]}}</a>
                     {% endfor %}
                 </div>
                 <div class="d-flex flex-row h-25">

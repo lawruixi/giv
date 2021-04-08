@@ -42,20 +42,20 @@
                             <h4>{{chat_group['name']}}</h4>
                             {% if current_user['is_mod'] %}
                             <a class="ms-auto me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/edit">
-                                <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='edit.png')}}" style="height:1.5rem;"></img>
+                                <img class="m-1 btn border border-3 border-secondary bg-light-light-green btn-hover-light-green p-1" src="{{url_for('static', filename='edit.png')}}" style="height:1.5rem;"></img>
                             </a>
                             <a class="ms-0 me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/exit">
-                                <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='exit.png')}}" style="height:1.5rem;"></img>
+                                <img class="m-1 btn border border-3 border-secondary bg-light-light-green btn-hover-light-green p-1" src="{{url_for('static', filename='exit.png')}}" style="height:1.5rem;"></img>
                             </a>
                             {% else %}
                             <a class="ms-auto me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/exit">
-                                <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='exit.png')}}" style="height:1.5rem;"></img>
+                                <img class="m-1 btn border border-3 border-secondary bg-light-light-green btn-hover-light-green p-1" src="{{url_for('static', filename='exit.png')}}" style="height:1.5rem;"></img>
                             </a>
                             {% endif %}
                         </div>
                         <h6>{{chat_group['description']}}</h6>
                         {% for message in messages %}
-                            <div class="d-flex flex-column rounded bg-white text-color-black p-1 border border-2 border-secondary">
+                            <div class="d-flex flex-column rounded bg-light-light-green text-color-black p-1 border border-2 border-secondary">
                                 <div class="d-flex flex-row">
                                     <p class="fst-italic mb-0 fs-6">{{message["sender"]}}</p>
                                     <p class="fst-italic ms-auto me-0 mb-0">{{message["time_sent"]}}</p>

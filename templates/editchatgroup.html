@@ -31,7 +31,7 @@
                     <input class="w-75 me-1 mx-1" type="text" id="username-add" placeholder="Search user..." name="username-add" onkeyup="filter_results_add();">
                     <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results(); this.blur();">Search</button>
                 </div>
-                <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
+                <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
                     {% for user in not_added_users %}
                         <input type="checkbox" class="btn-check btn-check-add" id="btncheck_a_{{user['username']}}" name="btncheck_a_{{user['username']}}" autocomplete="off">
                         <label class="checkbox-label checkbox-label-add text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_a_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
@@ -42,7 +42,7 @@
                     <input class="w-75 me-1 mx-1" type="text" id="username-manage" placeholder="Search user..." name="username-manage" onkeyup="filter_results_manage();">
                     <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results_manage(); this.blur();">Search</button>
                 </div>
-                <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
+                <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
                     {% for user in added_users %}
                     <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
                         {% if user['is_mod'] == 1 %}

@@ -24,7 +24,7 @@
                     </nav>
                 </div>
             </header>
-            <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2 p-2">
+            <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-light-light-green text-color-black m-2 p-2">
                 <div class="d-flex flex-row">
                     <p class="fst-italic"><strong>{{post['posted_by']}}</strong> posted...</p>
                     <p class="fst-italic ms-auto me-0">{{post['posting_time']}}</p>
@@ -37,7 +37,7 @@
                     <p class="my-auto">{{post['likes']}}</p>
                 </div>
             </div>
-            <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-white text-color-black m-2">
+            <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-light-light-green text-color-black m-2">
                 <h5 class="m-1">Comments</h5>
                 <!--TODO: nested comments oh boi-->
                 {% for comment in comments %}

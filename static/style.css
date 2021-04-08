@@ -22,8 +22,8 @@
     background-color: #FF76A4;
 }
 
-.bg-white{
-    background-color: #FFFFFF;
+.bg-light-light-green{
+    background-color: #DCFFD2;
 }
 
 .bg-dark-green{
@@ -172,6 +172,10 @@
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+
+.interest-group-div{
+    background-color: #CEFFBF;
 }
 /*.btn-check:checked +*/
 /*.btn-outline-secondary:focus,*/
