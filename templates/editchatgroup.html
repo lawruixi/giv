@@ -33,8 +33,8 @@
                 </div>
                 <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
                     {% for user in not_added_users %}
-                        <input type="checkbox" class="btn-check btn-check-add" id="btncheck_{{user['username']}}" name="btncheck_{{user['username']}}" autocomplete="off">
-                        <label class="checkbox-label checkbox-label-add text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
+                        <input type="checkbox" class="btn-check btn-check-add" id="btncheck_a_{{user['username']}}" name="btncheck_a_{{user['username']}}" autocomplete="off">
+                        <label class="checkbox-label checkbox-label-add text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_a_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
                     {% endfor %}
                 </div>
                 <h4> Remove users: </h4>
@@ -44,8 +44,8 @@
                 </div>
                 <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
                     {% for user in added_users %}
-                        <input type="checkbox" class="btn-check btn-check-remove" id="btncheck_{{user['username']}}" name="btncheck_{{user['username']}}" autocomplete="off">
-                        <label class="checkbox-label checkbox-label-remove text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
+                        <input type="checkbox" class="btn-check btn-check-remove" id="btncheck_r_{{user['username']}}" name="btncheck_r_{{user['username']}}" autocomplete="off">
+                        <label class="checkbox-label checkbox-label-remove text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_r_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
                     {% endfor %}
                 </div>
                 <div class="d-flex flex-column w-100 my-2">

@@ -145,10 +145,8 @@ def new_chat_group():
 
         image = None
     
-        moderator_username = session.get("username")
-
         #Insert new chat group into database.
-        cursor.execute("INSERT INTO chat_group VALUES (%s, %s, %s, %s, %s, %s)", (new_chat_group_id, chat_group_name, chat_group_desc, image, creation_date, moderator_username))
+        cursor.execute("INSERT INTO chat_group VALUES (%s, %s, %s, %s, %s)", (new_chat_group_id, chat_group_name, chat_group_desc, image, creation_date))
 
         #Insert into database all the users info.
         for username in new_group_users:
@@ -269,10 +267,14 @@ def edit_chat_group(chat_id):
     if(request.method == "POST" and "name" in request.form):
         #Keep track of all users in the new group.
         new_group_users = []
+        deleted_users = []
         for v in request.form:
-            if "btncheck_" in v:
-                username = v[9:]
+            if "btncheck_a_" in v:
+                username = v[11:]
                 new_group_users.append(username)
+            elif "btncheck_r_" in v:
+                username = v[11:]
+                deleted_users.append(username);
 
         chat_group_name = request.form["name"][:30]
         chat_group_desc = None
@@ -288,6 +290,13 @@ def edit_chat_group(chat_id):
             user = cursor.fetchone()
             if(user):
                 cursor.execute("INSERT INTO user_chat_info VALUES (%s, %s)", (username, chat_id))
+
+        #Delete from database all the new users info.
+        for username in deleted_users:
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("DELETE FROM user_chat_info WHERE username = %s and chat_group_id = %s", (username, chat_id))
 
         mysql.connection.commit()
         cursor.close()
