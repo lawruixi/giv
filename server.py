@@ -85,7 +85,18 @@ def feed():
     if(not session.get('logged_in')):
         return redirect(url_for("home"))
 
+    current_username = session.get('username')
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    #Grab all users current user is following.
+    query = """
+    SELECT username
+    FROM user
+    WHERE username IN
+    (SELECT following FROM follow WHERE follower = %s)
+    """ 
+    cursor.execute(query, (current_username,))
+    followings = cursor.fetchall();
+
     #Grab all chat groups the user is part of.
     query = """
     SELECT name, chat_group_id 
@@ -96,7 +107,7 @@ def feed():
     FROM user_chat_info 
     WHERE user_chat_info.username = %s)
     """
-    cursor.execute(query, (session.get('username'),))
+    cursor.execute(query, (current_username,))
     chat_groups = cursor.fetchall()
 
     #Grab all interest groups the user is part of.
@@ -110,16 +121,35 @@ def feed():
     WHERE username = %s);
     """
 
-    cursor.execute(query, (session.get('username'),))
+    cursor.execute(query, (current_username,))
     interest_groups = cursor.fetchall()
 
     cursor.close();
 
-    return render_template("feed.html", username=session.get('username'), chat_groups=chat_groups, interest_groups=interest_groups)
+    return render_template("feed.html", username=session.get('username'), followings=followings, chat_groups=chat_groups, interest_groups=interest_groups)
+
+@app.route('/follow/new')
+def follow():
+    if(not session.get('logged_in')):
+        #Not logged in!
+        return redirect(url_for("login"))
+
+    current_username = session.get('username')
+
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    query = """
+    SELECT username, IF(username IN (SELECT following FROM follow WHERE follower = %s), 1, 0) as is_following
+    FROM user
+    WHERE username <> %s;
+    """
+    cursor.execute(query, (current_username, current_username))
+    users = cursor.fetchall()
+    cursor.close()
+    return render_template("follow.html", users=users)
 
 @app.route('/chatgroup/new', methods=['GET', 'POST'])
 def new_chat_group():
-    #TODO: Images? Multiple mods?
+    #TODO: Images?
     if(not session.get('logged_in')):
         return redirect(url_for("login"))
     

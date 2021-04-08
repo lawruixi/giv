@@ -154,6 +154,27 @@
     background-color: #FFFFFF;
 }
 
+.checkbox-label-follow{
+    background-color: #307351;
+    color: #FFFFFF;
+}
+
+.checkbox-label-follow:hover{
+    background-color: #49AE7B;
+    color: #FFFFFF;
+}
+
+.checkbox-label-unfollow{
+    background-color: #CEFFBF;
+    color: #000000;
+}
+
+.checkbox-label-unfollow:hover{
+    background-color: #AFEB9D;
+    color: #000000;
+}
+
+
 .checkbox-label:active{
     box-shadow: 0 0 0 .25rem rgba(130,138,145,.5);
 }
