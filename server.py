@@ -346,6 +346,22 @@ def edit_chat_group(chat_id):
     cursor.close()
     return render_template("editchatgroup.html", not_added_users=not_added_users, added_users=added_users, chat_group=chat_group)
 
+@app.route('/chatgroup/<int:chat_id>/exit', methods=["GET", "POST"])
+def exit_chat_group(chat_id):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+    
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    current_username = session.get('username');
+
+    #Delete user from user_chat_info
+    cursor.execute("DELETE FROM user_chat_info WHERE username = %s AND chat_group_id = %s", (current_username, chat_id));
+    mysql.connection.commit()
+    cursor.close();
+
+    return redirect(url_for('feed'));
+
 @app.route('/interestgroup/new', methods=['GET', 'POST'])
 def new_interest_group():
     if(not session.get('logged_in')):

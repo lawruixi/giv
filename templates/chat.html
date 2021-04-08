@@ -44,6 +44,13 @@
                             <a class="ms-auto me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/edit">
                                 <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='edit.png')}}" style="height:1.5rem;"></img>
                             </a>
+                            <a class="ms-0 me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/exit">
+                                <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='exit.png')}}" style="height:1.5rem;"></img>
+                            </a>
+                            {% else %}
+                            <a class="ms-auto me-0" href="/chatgroup/{{chat_group['chat_group_id']}}/exit">
+                                <img class="m-1 btn border border-3 border-secondary bg-white btn-hover-light-green p-1" src="{{url_for('static', filename='exit.png')}}" style="height:1.5rem;"></img>
+                            </a>
                             {% endif %}
                         </div>
                         <h6>{{chat_group['description']}}</h6>

@@ -45,7 +45,11 @@
                 <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-white border border-secondary border-3 p-1 btn-group-vertical" role="group">
                     {% for user in added_users %}
                     <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
-                        <p class="manage-p my-auto">{{user['username']}}</p>
+                        {% if user['is_mod'] == 1 %}
+                        <p class="manage-p my-auto fst-italic fw-bold">{{user['username']}}</p>
+                        {% else %}
+                        <p class="manage-p my-auto fst-italic">{{user['username']}}</p>
+                        {% endif %}
                         <div class="btn-group w-50 ms-auto me-0" role="group">
                             {% if user['is_mod'] == 1 %}
                             <input type="checkbox" class="btn-check btn-check-dismiss" id="btncheck_d_{{user['username']}}" name="btncheck_d_{{user['username']}}" autocomplete="off">
