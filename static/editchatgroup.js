@@ -48,6 +48,26 @@ function filter_results_manage(){
     }
 }
 
+window.onload = function(){
+    var checkboxes_m = document.getElementsByClassName("btn-check-moderator");
+    var checkboxes_r = document.getElementsByClassName("btn-check-remove");
+
+    for(var i = 0; i < checkboxes_m.length; i++){
+        checkboxes_m[i].addEventListener('change', function(){
+            if(this.checked){
+                var checkbox_r = document.getElementById("btncheck_r_" + this.id.slice(11))
+                checkbox_r.checked = false;
+            }
+        });
+        checkboxes_r[i].addEventListener('change', function(){
+            if(this.checked){
+                var checkbox_m = document.getElementById("btncheck_m_" + this.id.slice(11))
+                checkbox_m.checked = false;
+            }
+        });
+    }
+}
+
 function validate_form(){
     var chat_name = document.forms[0]["name"].value;
     if(chat_name == ""){
