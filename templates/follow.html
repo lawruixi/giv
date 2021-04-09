@@ -29,39 +29,24 @@
                 <input class="w-75 me-1 mx-1" type="text" id="username" placeholder="Search user..." name="username" onkeyup="filter_results();">
                 <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results(); this.blur();">Search</button>
             </div>
-            <form class="p-2" method="POST" action="" onsubmit="return validate_form();">
-                <div class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
-                    {% for user in users %}
-                    <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
-                        {% if user['is_mod'] == 1 %}
-                        <p class="follow-p my-auto fst-italic fw-bold">{{user['username']}}</p>
-                        {% else %}
-                        <p class="follow-p my-auto fst-italic">{{user['username']}}</p>
-                        {% endif %}
-                        <div class="btn-group w-25 ms-auto me-0" role="group">
+            <div class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
+                {% for user in users %}
+                <form class="w-100" action="" method="POST">
+                <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
+                    <p class="follow-p my-auto">{{user['username']}}</p>
+                    <div class="btn-group w-25 ms-auto me-0" role="group">
                             {% if user['is_following'] == 1 %}
-                            <input type="checkbox" class="btn-check btn-check-unfollow" id="btncheck_u_{{user['username']}}" name="btncheck_u_{{user['username']}}" autocomplete="off">
+                            <input type="submit" class="btn-check btn-check-unfollow" id="btncheck_u_{{user['username']}}" name="btncheck_u_{{user['username']}}" autocomplete="off">
                             <label class="noselect text-center checkbox-label-unfollow text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_u_{{user['username']}}" onclick="this.blur();">Unfollow</label>
                             {% else %}
-                            <input type="checkbox" class="btn-check btn-check-follow" id="btncheck_f_{{user['username']}}" name="btncheck_f_{{user['username']}}" autocomplete="off">
+                            <input type="submit" class="btn-check btn-check-follow" id="btncheck_f_{{user['username']}}" name="btncheck_f_{{user['username']}}" autocomplete="off">
                             <label class="noselect text-center checkbox-label-follow text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_f_{{user['username']}}" onclick="this.blur();">Follow</label>
                             {% endif %}
-                        </div>
                     </div>
-                    {% endfor %}
+                    </form>
                 </div>
-                <div class="d-flex flex-column w-100 my-2">
-                    <div class="form-floating">
-                        <input class="w-100 my-1 form-control" type="text" id="name" placeholder="Chat Name..." name="name" maxlength="30" onchange="remove_invalid_name();">
-                        <label for="name">Chat Name...</label>
-                    </div>
-                    <div class="form-floating">
-                        <textarea class="w-100 my-1 form-control" id="description" placeholder="Description (optional)..." name="description" style="height: 8rem;" maxlength="100"></textarea>
-                        <label for="description">Description (optional)...</label>
-                    </div>
-                </div>
-                <button class="btn btn-secondary bg-dark-green font-color-white w-100" type="submit">Create!</button>
-            </form>
+                {% endfor %}
+            </div>
             <footer class="mt-auto">
                 <p class="font-weight-italic">giv, 2021</p>
             </footer>

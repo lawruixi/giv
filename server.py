@@ -59,7 +59,7 @@ def register():
             return "You are now registered :D"
         except Exception as e:
             return "MySQL Error [%d] : %s" % (e.args[0], e.args[1])
-    return render_template('register.html'); #TODO
+    return render_template('register.html');
 
 @app.route('/login', methods=["GET", "POST"])
 def login():
@@ -80,7 +80,7 @@ def login():
             return render_template('login.html')
     return render_template('login.html')
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile_self():
     if(not session.get('logged_in')):
         return redirect(url_for("login"))
@@ -88,14 +88,29 @@ def profile_self():
     current_username = session.get('username')
     #Get information about self
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    if(request.method == "POST" and "password" in request.form):
+        password = request.form['password']
+        email = request.form['email']
+        country = request.form['country']
+        cursor.execute("UPDATE user SET password = %s, email = %s, country = %s WHERE username = %s", (password, email, country, current_username));
+        mysql.connection.commit();
+        return redirect(url_for("feed"))
+
     cursor.execute("SELECT * FROM user WHERE username = %s", (current_username,))
     user = cursor.fetchone();
+    cursor.close();
 
     return render_template("profile_self.html", user=user)
 
 @app.route('/profile/<string:username>', methods=['GET', 'POST'])
 def profile(username):
     logged_in = session.get('logged_in')
+    
+    #If logged in and looking at yourself:
+    #redirect to profile_self page
+    if(logged_in and username == session.get('username')):
+        return redirect(url_for("profile_self"))
+
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     
     if(request.method == "POST"):
@@ -107,17 +122,15 @@ def profile(username):
         cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
         user = cursor.fetchone();
         if(user):
-            #Now check if already following.
-            cursor.execute("SELECT * FROM follow WHERE following = %s AND follower = %s", (username, current_username));
-            valid = cursor.fetchone();
-            is_following = False;
-            if(valid): is_following = True;
-            
-            if(is_following):
+            if("unfollow_button" in request.form):
                 cursor.execute("DELETE FROM follow WHERE following = %s AND follower = %s", (username, current_username))
             else:
-                #if not already following
-                cursor.execute("INSERT INTO follow (following, follower) VALUES (%s, %s)", (username, current_username))
+                #check if already following
+                cursor.execute("SELECT * FROM follow WHERE following = %s AND follower = %s", (username, current_username));
+                is_following = cursor.fetchone();
+                if(not is_following):
+                    #if not already following
+                    cursor.execute("INSERT INTO follow (following, follower) VALUES (%s, %s)", (username, current_username))
             #already following; unfollow.
             mysql.connection.commit()
             
@@ -187,7 +200,7 @@ def feed():
 
     return render_template("feed.html", username=session.get('username'), followings=followings, chat_groups=chat_groups, interest_groups=interest_groups)
 
-@app.route('/follow/new')
+@app.route('/follow/new', methods=['GET', 'POST'])
 def follow():
     if(not session.get('logged_in')):
         #Not logged in!
@@ -196,6 +209,27 @@ def follow():
     current_username = session.get('username')
 
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+
+    if(request.method == "POST"):
+        for v in request.form:
+            if("btncheck_f_" in v):
+                username = v[11:];
+                #check if user exists.
+                cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+                user = cursor.fetchone();
+                if(user):
+                    #follow user by inserting into the database.
+                    cursor.execute("INSERT INTO follow (following, follower) VALUES (%s, %s)", (username, current_username))
+                    mysql.connection.commit();
+            elif("btncheck_u_" in v):
+                username = v[11:]
+                #check if user exists.
+                cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+                user = cursor.fetchone();
+                if(user):
+                    cursor.execute("DELETE FROM follow WHERE following = %s AND follower = %s", (username, current_username))
+                    mysql.connection.commit();
+
     query = """
     SELECT username, IF(username IN (SELECT following FROM follow WHERE follower = %s), 1, 0) as is_following
     FROM user
@@ -568,7 +602,7 @@ def createpost(interest_group_name):
             likes = 0;
             posted_by = current_username;
 
-            cursor.execute("INSERT INTO post VALUES (%s, %s, %s, %s, %s, %s, %s)", (post_id, posting_time, posting_time, post_content, views, likes, posted_by))
+            cursor.execute("INSERT INTO post VALUES (%s, %s, %s, %s, %s, %s, %s)", (post_id, posting_time, post_title, post_content, views, likes, posted_by))
             cursor.execute("INSERT INTO posting_info VALUES (%s, %s, %s)", (post_id, interest_group_name, current_username));
             mysql.connection.commit()
             cursor.close();
