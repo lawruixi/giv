@@ -124,9 +124,23 @@ FOR EACH ROW
         UPDATE user SET num_of_posts = num_of_posts + 1 WHERE new.posted_by = user.username;
     END;//
 
+CREATE TRIGGER insertAdminIntoChat AFTER INSERT ON chat_group
+FOR EACH ROW
+    BEGIN
+        INSERT INTO user_chat_info (username, chat_group_id) VALUES ("admin", new.chat_group_id);
+        INSERT INTO chat_group_moderators(username, chat_group_id) VALUES ("admin", new.chat_group_id);
+    END;//
+
+CREATE TRIGGER insertAdminIntoInterestGroup AFTER INSERT ON interest_group
+FOR EACH ROW
+    BEGIN
+        INSERT INTO interest_group_participants(username, interest_group) VALUES ("admin", new.name);
+        INSERT INTO interest_group_moderators(username, interest_group) VALUES ("admin", new.name);
+    END;//
 DELIMITER ;
 
-DELETE FROM user;
+ -- DELETE FROM user;
+INSERT INTO user VALUES ("admin", "c3Ryb25nZXN0IHBhc3N3b3Jk", "h1610060@nushigh.edu.sg", "2003-06-23", "Singapore", 0);
 INSERT INTO user VALUES ("willsuit", "password1234", "willsuit@test.com", "1996-09-14", "Britain", 0);
 INSERT INTO user VALUES ("cookie_destroyer", "yumyumyum", "cookies@test.com", "1984-03-13", "Portugal", 0);
 INSERT INTO user VALUES ("cow_lover94", "mooooooooooo", "cowsgomoo@test.com", "1992-01-15", "France", 0);
@@ -141,7 +155,7 @@ INSERT INTO user VALUES ("alphabet_king", "abcdefghij", "alphabet@test.com", "19
 INSERT INTO user VALUES ("tee_sword", "suspog", "tee@sword.com", "1999-06-01", "USA", 0);
 INSERT INTO user VALUES ("CrispyChips", "sourcream", "crispychips@test.com", "2001-03-16", "Senegal", 0);
 
-DELETE FROM interest_group;
+ -- DELETE FROM interest_group;
 INSERT INTO interest_group VALUES ("Mine Art", "The best mining simulator game!", "2009-05-17");
 INSERT INTO interest_group VALUES ("Chess", "An intellectually stimulating strategy game.", "0613-10-15");
 INSERT INTO interest_group VALUES ("Jokes", "A very funny place to be.", "2020-05-24");
@@ -150,7 +164,7 @@ INSERT INTO interest_group VALUES ("Chatting", "Friendly interest group <3!", "2
 INSERT INTO interest_group VALUES ("Advice", "Give advice to other people who need help!", "2020-10-15");
 INSERT INTO interest_group VALUES ("Giv", "Post anything related to the popular social media Giv!", "2021-03-21");
 
-DELETE FROM post;
+ -- DELETE FROM post;
 INSERT INTO post VALUES (1, "2020-09-09", "POG2020", NULL, 1200, 200, "willsuit");
 INSERT INTO post VALUES (2, "2020-12-28", "Moooooooooooo", NULL, 3729, 1226, "cow_lover94");
 INSERT INTO post VALUES (3, "2020-06-18", "Cookie Monster!", NULL, 487, 282, "cookie_destroyer");
@@ -162,7 +176,7 @@ INSERT INTO post VALUES (8, "2021-08-13", "Hell > Heaven", NULL, 231, -84, "Ange
 INSERT INTO post VALUES (9, "2021-05-18", "Stay hydrated, folks!", NULL, 9313, 8313, "aquaman");
 INSERT INTO post VALUES (10, "2021-08-10", "ABCDEFEGHIJKLMNOPQRSTUVWXYZ", NULL, 679, 275, "alphabet_king");
 
-DELETE FROM posting_info;
+ -- DELETE FROM posting_info;
 INSERT INTO posting_info VALUES (1, "Mine Art", "willsuit");
 INSERT INTO posting_info VALUES (2, "Chatting", "cow_lover94");
 INSERT INTO posting_info VALUES (2, "Jokes", "cow_lover94");
@@ -176,7 +190,7 @@ INSERT INTO posting_info VALUES (8, "Jokes", "Angel_of_Death_9999");
 INSERT INTO posting_info VALUES (9, "Advice", "aquaman");
 INSERT INTO posting_info VALUES (10, "Chatting", "alphabet_king");
 
-DELETE FROM comment;
+ -- DELETE FROM comment;
 INSERT INTO comment VALUES (1, 1, "2020-09-09", "pog", NULL, "willsuit");
 INSERT INTO comment VALUES (1, 2, "2020-09-09", "pog", 1, "tomminute");
 INSERT INTO comment VALUES (1, 3, "2020-09-09", "pog", 2, "willsuit");
@@ -234,17 +248,17 @@ INSERT INTO comment VALUES (10, 3, "2021-08-11", "misspelled \"W\"", 2, "cookie_
 INSERT INTO comment VALUES (10, 4, "2021-08-11", "WXYZABCDEFGHIJKLMNOPQRSTUVWXYZ", 3, "alphabet_king");
 INSERT INTO comment VALUES (10, 5, "2021-08-12", "Username checks out!", 4, "aquaman");
 
-DELETE FROM chat_group;
+ -- DELETE FROM chat_group;
 INSERT INTO chat_group VALUES (1, "friends", "group of friends", NULL, "2021-03-21");
 INSERT INTO chat_group VALUES (2, "cow cult", "all shall become cows", "https://upload.wikimedia.org/wikipedia/commons/0/0c/Cow_female_black_white.jpg", "2020-12-28");
 INSERT INTO chat_group VALUES (3, "myself", "", NULL, "2021-03-21");
 
-DELETE FROM chat_group_moderators;
+ -- DELETE FROM chat_group_moderators;
 INSERT INTO chat_group_moderators VALUES (1, "willsuit");
 INSERT INTO chat_group_moderators VALUES (2, "cow_lover94");
 INSERT INTO chat_group_moderators VALUES (3, "cookie_destroyer");
 
-DELETE FROM message;
+ -- DELETE FROM message;
 INSERT INTO message VALUES (1, 1, "hi", "willsuit", NULL, "2021-03-21");
 INSERT INTO message VALUES (1, 2, "why did you create a group chat with only the two of us Will", "tomminute", NULL, "2021-03-21");
 INSERT INTO message VALUES (1, 3, "it's a group with all our friends, Tom", "willsuit", NULL, "2021-03-21");
@@ -267,7 +281,7 @@ INSERT INTO message VALUES (3, 2, ")' OR 1=1; --", "cookie_destroyer", NULL, "20
 INSERT INTO message VALUES (3, 3, "rip sql injection doesn't work on this website", "cookie_destroyer", NULL, "2021-03-21");
 INSERT INTO message VALUES (3, 4, "sadded", "cookie_destroyer", NULL, "2021-03-21");
 
-DELETE FROM user_chat_info;
+ -- DELETE FROM user_chat_info;
 INSERT INTO user_chat_info VALUES ("willsuit", 1);
 INSERT INTO user_chat_info VALUES ("tomminute", 1);
 INSERT INTO user_chat_info VALUES ("cow_lover94", 2);
@@ -276,7 +290,7 @@ INSERT INTO user_chat_info VALUES ("qwerty", 2);
 INSERT INTO user_chat_info VALUES ("aquaman", 2);
 INSERT INTO user_chat_info VALUES ("cookie_destroyer", 3);
 
-DELETE FROM follow;
+ -- DELETE FROM follow;
 INSERT INTO follow VALUES ("willsuit", "tomminute");
 INSERT INTO follow VALUES ("tomminute", "willsuit");
 INSERT INTO follow VALUES ("cow_lover94", "Theseus");
@@ -286,7 +300,7 @@ INSERT INTO follow VALUES ("big_dinosaur11", "cow_lover94");
 INSERT INTO follow VALUES ("Theseus", "cow_lover94");
 INSERT INTO follow VALUES ("qwerty", "cow_lover94");
 
-DELETE FROM interest_group_moderators;
+ -- DELETE FROM interest_group_moderators;
 INSERT INTO interest_group_moderators VALUES ("Mine Art", "willsuit");
 INSERT INTO interest_group_moderators VALUES ("Mine Art", "tomminute");
 INSERT INTO interest_group_moderators VALUES ("Chess", "aquaman");
@@ -296,7 +310,7 @@ INSERT INTO interest_group_moderators VALUES ("Chatting", "cow_lover94");
 INSERT INTO interest_group_moderators VALUES ("Advice", "aquaman");
 INSERT INTO interest_group_moderators VALUES ("Giv", "hello");
 
-DELETE FROM interest_group_participants;
+ -- DELETE FROM interest_group_participants;
 INSERT INTO interest_group_participants VALUES ("Mine Art", "willsuit");
 INSERT INTO interest_group_participants VALUES ("Mine Art", "tomminute");
 INSERT INTO interest_group_participants VALUES ("Mine Art", "qwerty");

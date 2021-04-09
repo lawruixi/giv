@@ -28,7 +28,7 @@
             <div class="flex-grow-1 d-flex flex-row rounded bg-light-green border border-3 border-secondary text-color-black">
                 <div class="d-flex flex-column w-25 border-end border-3 border-secondary text-color-black ps-1" style="height:inherit; overflow-y:scroll;">
                     <h4>Members</h4>
-                    {% for user in users %}
+                    {% for user in users if not user['username'] == 'admin' %}
                         {% if user['is_mod'] == 1 %}
                             <p class="mb-0 fw-bold fst-italic">{{user['username']}}</p>
                         {% else %}

@@ -23,17 +23,6 @@ def home():
 
 @app.route('/about', methods=["GET", "POST"])
 def about():
-    # if(request.method == "POST" and "username" in request.form):
-        # details = request.form
-        # username = details["username"]
-        # try:
-            # cur = mysql.connection.cursor()
-            # cur.execute("SELECT username, email FROM user WHERE username = %s", (username,))
-        # data = cur.fetchall()
-        # cur.close()
-        # return render_template('results.html', data=data)
-    # except Exception as e:
-        # return "MySQL Error" + str(e.args)
     return render_template('about.html', logged_in = session.get('logged_in')); #TODO
 
 @app.route('/<user>')
@@ -42,7 +31,8 @@ def welcome(user):
 
 @app.route('/contact')
 def contact():
-    return render_template('contact.html')
+    logged_in = session.get('logged_in');
+    return render_template('contact.html', logged_in=logged_in)
 
 @app.route('/register', methods=["GET", "POST"])
 def register():
@@ -198,7 +188,7 @@ def feed():
 
     cursor.close();
 
-    return render_template("feed.html", username=session.get('username'), followings=followings, chat_groups=chat_groups, interest_groups=interest_groups)
+    return render_template("feed.html", username=current_username, followings=followings, chat_groups=chat_groups, interest_groups=interest_groups)
 
 @app.route('/follow/new', methods=['GET', 'POST'])
 def follow():

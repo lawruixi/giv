@@ -43,7 +43,7 @@
                     <button class="btn btn-secondary bg-dark-green font-color-white w-25" onclick="filter_results_manage(); this.blur();">Search</button>
                 </div>
                 <div id="edit_chat_group_div" class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
-                    {% for user in added_users %}
+                    {% for user in added_users if not user['username'] == "admin" %}
                     <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
                         {% if user['is_mod'] == 1 %}
                         <p class="manage-p my-auto fst-italic fw-bold">{{user['username']}}</p>

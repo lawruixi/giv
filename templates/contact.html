@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html class="h-100">
+<html class="h-100" style="width: 100vw; overflow-x: hidden;">
     <head>
         <title>giv</title>
         <meta charset="utf-8">
@@ -9,9 +9,45 @@
         <link rel="stylesheet" href=" {{url_for('static', filename='style.css')}}">
 
     </head>
-    <body>
-        <h1>Contact us @ [insert phone number here]! </h1>
-         <button type="button">Feedback form</button> 
+    <body class="h-100">
+        <div class="cover-container d-flex w-75 h-100 p-3 mx-auto flex-column">
+            <header class="mb-2 h-25">
+                <div class="h-100">
+                    <!--<h3 class="float-md-start mb-0">giv</h3>-->
+                    <img class="float-md-start mb-0 h-75" src="{{url_for('static', filename='giv.png')}}" alt="giv">
+                    <nav class="nav nav-masthead justify-content-center float-md-end">
+                        <a class="nav-link" aria-current="page" href="/">Home</a>
+                        <a class="nav-link active" href="/about">About</a>
+                        <a class="nav-link" href="/contact">Contact</a>
+                        {% if logged_in %}
+                            <a class="nav-link" href="/logout">Sign Out</a>
+                        {% else %}
+                            <a class="nav-link" href="/login">Sign In</a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </header>
+            <h2>Contact us in any of the following ways! </h2>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Email address: </td>
+                        <td>h1610060@nushigh.edu.sg</td>
+                    </tr>
+                    <tr>
+                        <td>Phone:</td>
+                        <td>9876 5432</td>
+                    </tr>
+                    <tr>
+                        <td>Message our admin on giv:</td>
+                        <td><a href="/profile/admin">admin</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="mt-auto">
+                <p class="font-weight-italic">giv, 2021</p>
+            </footer>
+        </div>
     </body>
 
 </html>
