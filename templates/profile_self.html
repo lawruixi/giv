@@ -26,7 +26,10 @@
             </header>
             <form action="" method="POST" onsubmit="return validate_form();">
                 <div class="d-flex flex-column w-100 p-1">
-                    <h2>{{user['username']}}</h2>
+                    <div class="d-flex flex-row">
+                        <h2>{{user['username']}}</h2>
+                        <p class="my-0 ms-auto me-0 fst-italic">{{user['num_of_posts']}} posts</p>
+                    </div>
                     <div class="form-floating my-1">
                         <input type="password" class="form-control" placeholder="Password" id="password_textfield" name="password" value="{{user['password']}}" onchange="remove_invalid_name();">
                         <label for="password_textfield">Password...</label>
