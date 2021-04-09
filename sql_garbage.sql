@@ -124,7 +124,13 @@ FOR EACH ROW
         UPDATE user SET num_of_posts = num_of_posts + 1 WHERE new.posted_by = user.username;
     END;//
 
-CREATE TRIGGER removeFromModeratorWhenRemoved AFTER DELETE ON interest_group_participants
+CREATE TRIGGER removeFromModeratorWhenRemovedChat AFTER DELETE ON user_chat_info
+FOR EACH ROW
+    BEGIN
+        DELETE FROM chat_group_moderators WHERE chat_group_moderators.username = old.username AND chat_group_moderators.chat_group_id = old.chat_group_id;
+    END;//
+
+CREATE TRIGGER removeFromModeratorWhenRemovedIG AFTER DELETE ON interest_group_participants
 FOR EACH ROW
     BEGIN
         DELETE FROM interest_group_moderators WHERE interest_group_moderators.username = old.username AND interest_group_moderators.interest_group = old.interest_group;
