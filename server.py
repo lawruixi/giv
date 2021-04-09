@@ -554,6 +554,7 @@ def interest_group(interest_group_name):
         #Not even logged in...
         return redirect(url_for("login"))
 
+    current_username = session.get('username')
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
     interest_group = cursor.fetchone();
@@ -562,11 +563,97 @@ def interest_group(interest_group_name):
     if(not interest_group):
         return redirect(url_for("feed"));
 
+    #Get whether current user is mod:
+    cursor.execute("SELECT * FROM interest_group_moderators WHERE interest_group = %s AND username = %s", (interest_group_name, current_username))
+    valid = cursor.fetchone();
+    if(valid): is_mod = True;
+    else: is_mod = False;
     #Get all posts in the interest group.
     cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %s", (interest_group_name,));
     posts = cursor.fetchall();
+    cursor.close();
 
-    return render_template("interestgroup.html", interest_group=interest_group, posts=posts);
+    return render_template("interestgroup.html", interest_group=interest_group, posts=posts, is_mod=is_mod);
+
+@app.route('/interestgroup/<string:interest_group_name>/edit', methods=['GET', 'POST'])
+def edit_interest_group(interest_group_name):
+    if(not session.get('logged_in')):
+        #Not even logged in...
+        return redirect(url_for("login"))
+
+    current_username = session.get('username')
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
+    interest_group = cursor.fetchone();
+        
+    #If interest group does not exist:
+    if(not interest_group):
+        return redirect(url_for("feed"));
+
+    #Get whether current user is in interest group and is a mod
+    cursor.execute("SELECT * FROM interest_group_moderators m, interest_group_participants p WHERE p.username = m.username AND p.interest_group = m.interest_group AND p.interest_group = %s AND p.username = %s", (interest_group_name, current_username))
+    valid = cursor.fetchone();
+    if(not valid):
+        #Not authorized to view this page
+        return redirect(url_for("feed"));
+    if(request.method == "POST"):
+        print(request.form);
+
+    if(request.method == "POST" and "description" in request.form):
+        #Keep track of all users in the new group.
+        deleted_users = []
+        new_group_moderators = []
+        dismissed_moderators = []
+        for v in request.form:
+            if "btncheck_r_" in v:
+                username = v[11:]
+                deleted_users.append(username);
+            elif "btncheck_m_" in v:
+                username = v[11:]
+                new_group_moderators.append(username);
+            elif "btncheck_d_" in v:
+                username = v[11:]
+                dismissed_moderators.append(username);
+
+        interest_group_description = None
+        if("description" in request.form):
+            interest_group_description = request.form["description"][:100]
+
+        #Update into database new info.
+        cursor.execute("UPDATE interest_group SET description = %s WHERE name = %s", (interest_group_description, interest_group_name));
+        #Delete from database all the removed users info.
+        for username in deleted_users:
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("DELETE FROM interest_group_participants WHERE username = %s and interest_group = %s", (username,interest_group_name))
+
+        for username in new_group_moderators:
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("INSERT INTO interest_group_moderators VALUES (%s, %s)", (interest_group_name, username));
+
+        for username in dismissed_moderators:
+            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
+            user = cursor.fetchone()
+            if(user):
+                cursor.execute("DELETE FROM interest_group_moderators WHERE interest_group = %s AND username = %s", (interest_group_name, username))
+
+        mysql.connection.commit()
+        cursor.close()
+        return redirect(url_for("interest_group", interest_group_name=interest_group_name))
+
+    #Get all participants
+    query = """
+    SELECT *, IF(user.username IN (SELECT username FROM interest_group_moderators WHERE interest_group_moderators.interest_group = %s), 1, 0) as is_mod
+    FROM user, interest_group_participants WHERE user.username = interest_group_participants.username AND interest_group_participants.interest_group = %s
+    """
+    # cursor.execute("SELECT * FROM user, interest_group_participants WHERE user.username = interest_group_participants.username AND interest_group_participants.interest_group = %s", (interest_group_name,))
+    cursor.execute(query, (interest_group_name, interest_group_name))
+    participants = cursor.fetchall();
+
+    return render_template("editinterestgroup.html", current_username=current_username, participants=participants, interest_group=interest_group);
 
 @app.route('/interestgroup/<string:interest_group_name>/post/new', methods=['GET', 'POST'])
 def createpost(interest_group_name):

@@ -23,7 +23,14 @@
                 </div>
             </header>
             <div class="d-flex flex-column">
-                <h2 class="mx-auto">Welcome to the {{interest_group['name']}} Interest Group!</h2>
+                <div class="d-flex flex-row">
+                    <h2 class="mx-auto">Welcome to the {{interest_group['name']}} Interest Group!</h2>
+                    {% if is_mod %}
+                    <a class="ms-auto me-0" href="/interestgroup/{{interest_group['name']}}/edit">
+                        <img class="m-1 btn border border-3 border-secondary bg-light-light-green btn-hover-light-green p-1" src="{{url_for('static', filename='edit.png')}}" style="height:1.5rem;"></img>
+                    </a>
+                    {% endif %}
+                </div>
                 <h4 class="mx-auto">{{interest_group['description']}}</h4>
                 <a href="/interestgroup/{{interest_group['name']}}/post/new" class="w-100 m-2 p-2 btn btn-secondary bg-dark-green text-color-white fs-3">+ Post</a>
 
