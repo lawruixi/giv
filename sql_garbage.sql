@@ -124,6 +124,17 @@ FOR EACH ROW
         UPDATE user SET num_of_posts = num_of_posts + 1 WHERE new.posted_by = user.username;
     END;//
 
+CREATE TRIGGER removeChatGroup AFTER DELETE ON user_chat_info
+FOR EACH ROW
+    BEGIN
+        -- SELECT @member_number := count(*) FROM user_chat_info WHERE user_chat_info.username <> "admin" AND user_chat_info.chat_group_id = old.chat_group_id;
+        DECLARE member_number int;
+        SELECT count(*) INTO member_number FROM user_chat_info WHERE user_chat_info.username <> "admin" AND user_chat_info.chat_group_id = old.chat_group_id;
+        IF (member_number = 0) THEN
+            DELETE FROM chat_group WHERE chat_group_id = old.chat_group_id;
+        END IF;
+    END;//
+
 CREATE TRIGGER removeFromModeratorWhenRemovedChat AFTER DELETE ON user_chat_info
 FOR EACH ROW
     BEGIN

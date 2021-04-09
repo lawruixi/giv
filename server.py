@@ -605,6 +605,12 @@ def interest_group(interest_group_name):
     if(not interest_group):
         return redirect(url_for("feed"));
 
+    #Check if user is part of interest group;
+    cursor.execute("SELECT * FROM interest_group_participants WHERE username = %s AND interest_group = %s", (current_username, interest_group_name))
+    valid = cursor.fetchone();
+    if(not valid):
+        return redirect(url_for("feed"))
+
     #Get whether current user is mod:
     cursor.execute("SELECT * FROM interest_group_moderators WHERE interest_group = %s AND username = %s", (interest_group_name, current_username))
     valid = cursor.fetchone();
