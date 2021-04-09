@@ -32,7 +32,7 @@
             </div>
             <form class="p-2" method="POST" action="" onsubmit="return validate_form();">
                 <div id="create_chat_group_div" class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
-                    {% for user in users %}
+                    {% for user in users if not user['username'] == "admin" %}
                         <input type="checkbox" class="btn-check" id="btncheck_{{user['username']}}" name="btncheck_{{user['username']}}" autocomplete="off">
                         <label class="checkbox-label text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_{{user['username']}}" onclick="this.blur();">{{user["username"]}}</label>
                     {% endfor %}

@@ -15,6 +15,10 @@ app.config['SECRET_KEY'] = "7\xac\xc9\xeeW\x9d\xec^\xf2\xdah\xf5\x8d\x10\x0e\xfc
 
 mysql = MySQL(app)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("404.html"), 404
+
 @app.route('/')
 def home():
     if(session.get('logged_in')):
@@ -25,9 +29,9 @@ def home():
 def about():
     return render_template('about.html', logged_in = session.get('logged_in')); #TODO
 
-@app.route('/<user>')
-def welcome(user):
-    return render_template('welcome.html', user=user)
+# @app.route('/<user>')
+# def welcome(user):
+    # return render_template('welcome.html', user=user)
 
 @app.route('/contact')
 def contact():
@@ -46,7 +50,7 @@ def register():
             cur.execute("INSERT INTO user(email, username, password) VALUES (%s, %s, %s)", (email, username, password))
             mysql.connection.commit()
             cur.close()
-            return "You are now registered :D"
+            return redirect(url_for("login"))
         except Exception as e:
             return "MySQL Error [%d] : %s" % (e.args[0], e.args[1])
     return render_template('register.html');
@@ -235,6 +239,8 @@ def new_chat_group():
     #TODO: Images?
     if(not session.get('logged_in')):
         return redirect(url_for("login"))
+
+    current_username = session.get('username')
     
     if(request.method == "POST" and "name" in request.form):
         #Keep track of all users in the new group.
@@ -263,22 +269,33 @@ def new_chat_group():
 
         #Insert into database all the users info.
         for username in new_group_users:
-            #Verify they exist.
-            cursor.execute("SELECT * FROM user WHERE username = %s", (username,))
-            user = cursor.fetchone()
-            if(user):
+            #Verify they exist AND are not already in the chat group;
+            query = """
+            SELECT username FROM user
+            WHERE user.username = %s AND user.username NOT IN
+            (SELECT username FROM user_chat_info WHERE chat_group_id = %s)
+            """
+            cursor.execute(query, (username, new_chat_group_id))
+            valid = cursor.fetchone()
+            if(valid):
                 cursor.execute("INSERT INTO user_chat_info VALUES (%s, %s)", (username, new_chat_group_id))
 
+        #By default, moderator is chat group creator;
+        #add them if they are not already a moderator somehow:
+        query = "SELECT * FROM chat_group_moderators WHERE username = %s AND chat_group_id = %s";
+        cursor.execute(query, (current_username, new_chat_group_id));
+        invalid = cursor.fetchone();
+        print(invalid);
+        if(not invalid):
+            cursor.execute("INSERT INTO chat_group_moderators VALUES (%s, %s)", (new_chat_group_id, current_username))
 
         mysql.connection.commit()
         cursor.close()
-        return redirect(url_for("feed"))
+        return redirect(url_for("chat_group", chat_id=new_chat_group_id))
 
         
-    current_user = session.get('username')
-
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute("SELECT username FROM user WHERE username <> %s", (current_user,))
+    cursor.execute("SELECT username FROM user WHERE username <> %s", (current_username,))
     users = cursor.fetchall()
     cursor.close()
     return render_template("newchatgroup.html", users=users)
@@ -533,6 +550,7 @@ def create_interest_group():
         interest_group_desc = request.form.get("interest_group_description");
         creation_date = datetime.date.today().strftime("%Y-%m-%d")
 
+        current_username = session.get('username')
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         #Check if interest group already exists.
         cursor.execute("SELECT name FROM interest_group WHERE name=%s", (interest_group_name,));
@@ -542,6 +560,30 @@ def create_interest_group():
             return render_template("createinterestgroup.html");
 
         cursor.execute("INSERT INTO interest_group VALUES (%s, %s, %s)", (interest_group_name, interest_group_desc, creation_date))
+    
+        #Add user into new interest group.
+        #Make sure user exists, but is not already part of the interest group somehow.
+        query = """
+        SELECT username FROM user WHERE username = %s AND username NOT IN
+        (SELECT username FROM interest_group_participants
+        WHERE interest_group = %s);
+        """
+        cursor.execute(query, (current_username, interest_group_name))
+        valid = cursor.fetchone();
+        if(valid):
+            cursor.execute("INSERT INTO interest_group_participants VALUES (%s, %s)", (interest_group_name, current_username))
+
+        #Do the same for moderators.
+        query = """
+        SELECT username FROM user WHERE username = %s AND username NOT IN
+        (SELECT username FROM interest_group_moderators
+        WHERE interest_group = %s);
+        """
+        cursor.execute(query, (current_username, interest_group_name))
+        valid = cursor.fetchone();
+        if(valid):
+            cursor.execute("INSERT INTO interest_group_moderators VALUES (%s, %s)", (interest_group_name, current_username))
+
         mysql.connection.commit()
         cursor.close()
         return redirect(url_for("interest_group", interest_group_name=interest_group_name))

@@ -30,11 +30,13 @@
             <div class="d-flex flex-row">
                 <h2>{{user['username']}}</h2>
                 <form action="" method="POST" class="ms-auto me-0">
-                {% if logged_in and not is_following %}
-                    <input type="submit" name="follow_button" id="button" class="btn btn-secondary bg-dark-green fw-bold" value="+ Follow">
-                {% elif logged_in %}
-                    <input type="submit" name="unfollow_button" id="button" class="btn border border-3 border-secondary btn-hover-light-green text-color-black fw-bold" value="- Unfollow">
-                {% endif %}
+                    {% if user['username'] != "admin" %}
+                    {% if logged_in and not is_following %}
+                        <input type="submit" name="follow_button" id="button" class="btn btn-secondary bg-dark-green fw-bold" value="+ Follow">
+                    {% elif logged_in %}
+                        <input type="submit" name="unfollow_button" id="button" class="btn border border-3 border-secondary btn-hover-light-green text-color-black fw-bold" value="- Unfollow">
+                    {% endif %}
+                    {% endif %}
                 </form>
             </div>
             <table class="table">

@@ -133,8 +133,8 @@ FOR EACH ROW
 CREATE TRIGGER insertAdminIntoChat AFTER INSERT ON chat_group
 FOR EACH ROW
     BEGIN
-        INSERT INTO user_chat_info (username, chat_group_id) VALUES ("admin", new.chat_group_id);
-        INSERT INTO chat_group_moderators(username, chat_group_id) VALUES ("admin", new.chat_group_id);
+        INSERT IGNORE INTO user_chat_info (username, chat_group_id) VALUES ("admin", new.chat_group_id);
+        INSERT IGNORE INTO chat_group_moderators(username, chat_group_id) VALUES ("admin", new.chat_group_id);
     END;//
 
 CREATE TRIGGER insertAdminIntoInterestGroup AFTER INSERT ON interest_group
@@ -160,6 +160,7 @@ INSERT INTO user VALUES ("aquaman", "water", "aqua@man.com", "1995-06-28", "Bang
 INSERT INTO user VALUES ("alphabet_king", "abcdefghij", "alphabet@test.com", "1998-07-07", "Comoros", 0);
 INSERT INTO user VALUES ("tee_sword", "suspog", "tee@sword.com", "1999-06-01", "USA", 0);
 INSERT INTO user VALUES ("CrispyChips", "sourcream", "crispychips@test.com", "2001-03-16", "Senegal", 0);
+INSERT INTO user VALUES ("P1ZzA", "hawaiian", "pizza@pizza.pizza", "1998-03-01", "Chad", 0);
 
  -- DELETE FROM interest_group;
 INSERT INTO interest_group VALUES ("Mine Art", "The best mining simulator game!", "2009-05-17");
