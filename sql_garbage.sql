@@ -178,6 +178,11 @@ INSERT INTO user VALUES ("alphabet_king", "abcdefghij", "alphabet@test.com", "19
 INSERT INTO user VALUES ("tee_sword", "suspog", "tee@sword.com", "1999-06-01", "USA", 0);
 INSERT INTO user VALUES ("CrispyChips", "sourcream", "crispychips@test.com", "2001-03-16", "Senegal", 0);
 INSERT INTO user VALUES ("P1ZzA", "hawaiian", "pizza@pizza.pizza", "1998-03-01", "Chad", 0);
+INSERT INTO user VALUES ("seedyguy", "cashews", "seed@guy.com", "1987-02-10", "France", 0);
+INSERT INTO user VALUES ("RedLavender", "bluesky", "red@test.com", "2016-08-12", "Burkina Faso", 0);
+INSERT INTO user VALUES ("nether_dragon", "rawr", "dragon@test.com", "2019-05-07", "Nigeria", 0);
+INSERT INTO user VALUES ("symphony", "aria", "aria@symphony.com", "2003-07-17", "Singapore", 0);
+INSERT INTO user VALUES ("ouroboros", "eternal_snek", "hello@world.com", "2003-06-23", "Singapore", 0);
 
  -- DELETE FROM interest_group;
 INSERT INTO interest_group VALUES ("Mine Art", "The best mining simulator game!", "2009-05-17");
@@ -187,6 +192,14 @@ INSERT INTO interest_group VALUES ("Music", "La la la", "2021-03-15");
 INSERT INTO interest_group VALUES ("Chatting", "Friendly interest group <3!", "2020-07-25");
 INSERT INTO interest_group VALUES ("Advice", "Give advice to other people who need help!", "2020-10-15");
 INSERT INTO interest_group VALUES ("Giv", "Post anything related to the popular social media Giv!", "2021-03-21");
+INSERT INTO interest_group VALUES ("Stories", "For writers wishing to try their hand at telling stories~", "2021-04-10");
+INSERT INTO interest_group VALUES ("News", "Get up to date with world happenings!", "1998-06-06");
+INSERT INTO interest_group VALUES ("Food", "For all the foodies of the world.", "1992-05-26");
+INSERT INTO interest_group VALUES ("Art", "The world would never be the same without art.", "1992-05-26");
+INSERT INTO interest_group VALUES ("Science", "From ashes to ashes, from black holes to atoms", "1999-02-01");
+INSERT INTO interest_group VALUES ("Books", "Talk about your favourite books here!", "2003-07-01");
+INSERT INTO interest_group VALUES ("Movies", "Blockbuster films!", "2016-10-13");
+INSERT INTO interest_group VALUES ("Mine Art II", "The sequel to the best mining simulator game!", "2013-04-29");
 
  -- DELETE FROM post;
 INSERT INTO post VALUES (1, "2020-09-09", "POG2020", NULL, 1200, 200, "willsuit");
