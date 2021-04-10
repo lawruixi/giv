@@ -617,7 +617,7 @@ def interest_group(interest_group_name):
     if(valid): is_mod = True;
     else: is_mod = False;
     #Get all posts in the interest group.
-    cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %s", (interest_group_name,));
+    cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %s ORDER BY post.posting_time DESC, post.post_id", (interest_group_name,));
     posts = cursor.fetchall();
     cursor.close();
 

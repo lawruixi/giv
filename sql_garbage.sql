@@ -252,6 +252,14 @@ INSERT INTO post VALUES (35, "2021-04-10 17:36:43", "A student was doing his CS 
 INSERT INTO post VALUES (36, "2020-05-02 00:47:01", "Three-word Prompt: Stove, Bag, Brother", "One day, there were two brothers. Their father was a rich and wealthy man, and possessed many different antique and magical items. Among one of these items was a bag. This bag, however, was no normal bag, because this bag could summon a stove at will. All one had to do was to reach into the bag, and they could pull out a magical stove! Needless to say, this bag was a highly coveted item amongst adventurers. Unfortunately, this rich and wealthy father died, and the two brothers had a fierce argument to decide who kept the bag. They decided to have a competition to see who was worthy of the bag, and the rules worked like this: they each had to reach into the bag, pick up the stove, and carry it as far as they possibly could. The one who could bring the stove as far away as possible won the competition. The first brother took his old, trusty car, and drove away with the stove in the back of the car. Unfortunately, the car broke down soon afterwards, since, as it turns out, it's not very healthy for your car to have a massive stove sitting at the back. The second brother then decided to bring a camel. As he rode the camel across the desert, he thought he would win, as camels were generally very strong. However, it proved not to be the case, as the stove was too heavy for even the camel to carry. And that is the story of the stove that broke the camel's back.", 10506, 8304, "cookie_destroyer");
 
 INSERT INTO post VALUES (37, "2020-07-30 03:24:58", "World will be destroyed by climate change by 2050", "sad", 2, 1, "Angel_of_Death_9999");
+INSERT INTO post VALUES (39, "2021-03-10 07:18:01", "Iron deficiency leads to many heart problems, doctors find in new study", "As if that wasn't obvious lol", 69, 46, "ouroboros");
+-- INSERT INTO post VALUES (40, "2021-03-25 23:10:35", "Leaders of tomorrow should ensure the world is not doom and gloom", "\"We're just doing our job\", president of ASU, the world's leading nation, says in press conference.", 3, 2, "CrispyChips");
+-- INSERT INTO post VALUES (41, "2021-07-29 00:36:39", "hilarious meme leaves many contracting laughing disease", "\"I can't stop laughing,\" says a man we interviewed, while bursting into giggles. The authorities heavily advise the public against viewing this hilarious meme.", 6331, 5001, "seedyguy");
+
+INSERT INTO post VALUES (42, "2021-07-26 10:54:42", "New Ice with Cream at Dan and Jarry's!", "It tastes not bad actually... slurp!", 3, 1, "big_dinosaur11");
+INSERT INTO post VALUES (43, "2021-01-15 04:52:58", "Making my own pizzeria!", "Anyone's free to stop by :D", 4, 2, "P1ZzA");
+INSERT INTO post VALUES (44, "2021-03-23 16:29:19", "ghost salt", "many seem to like ghost pepper, and now I hereby present my ghost salt!", 0, 0, "seedyguy");
+INSERT INTO post VALUES (45, "2020-07-28 09:51:60", "Too tough to swallow?", "I always wanted to try eating bread, but it's so hard I can't swallow it!", 8, 6, "aquaman");
 
  -- DELETE FROM posting_info;
 INSERT INTO posting_info VALUES (1, "Mine Art");
@@ -267,6 +275,8 @@ INSERT INTO posting_info VALUES (8, "Jokes");
 INSERT INTO posting_info VALUES (9, "Advice");
 INSERT INTO posting_info VALUES (10, "Chatting");
 INSERT INTO posting_info VALUES (36, "Stories");
+INSERT INTO posting_info VALUES (40, "News");
+INSERT INTO posting_info VALUES (41, "News");
 
  -- DELETE FROM comment;
 INSERT INTO comment VALUES (1, 1, "2020-09-09", "pog", NULL, "willsuit");
