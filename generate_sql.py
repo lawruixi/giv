@@ -17,7 +17,7 @@ while(True):
         continue
     break
 
-random_hour = random.randint(0, 24);
+random_hour = random.randint(0, 23);
 random_minute = random.randint(0, 60);
 random_second = random.randint(0, 60);
 
@@ -47,4 +47,4 @@ users = ["admin", "willsuit", "cookie_destroyer", "cow_lover94", "tomminute", "T
 
 random_user = random.choice(users);
 
-print(f"INSERT INTO post VALUES ({id}, \"{random_time}\", \"{title}\", \"{content}\", {views}, {likes}, \"{random_user}\")")
+print(f"INSERT INTO post VALUES ({id}, \"{random_time}\", \"{title}\", \"{content}\", {views}, {likes}, \"{random_user}\");")

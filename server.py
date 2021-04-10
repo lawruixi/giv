@@ -728,7 +728,7 @@ def createpost(interest_group_name):
             posted_by = current_username;
 
             cursor.execute("INSERT INTO post VALUES (%s, %s, %s, %s, %s, %s, %s)", (post_id, posting_time, post_title, post_content, views, likes, posted_by))
-            cursor.execute("INSERT INTO posting_info VALUES (%s, %s, %s)", (post_id, interest_group_name, current_username));
+            cursor.execute("INSERT INTO posting_info VALUES (%s, %s)", (post_id, interest_group_name));
             mysql.connection.commit()
             cursor.close();
             return redirect(url_for("post", interest_group_name=interest_group_name, post_id=post_id))
