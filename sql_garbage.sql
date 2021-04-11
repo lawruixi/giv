@@ -29,10 +29,10 @@ CREATE TABLE comment(
     comment_id int(9) NOT NULL,
     commenting_time datetime NOT NULL,
     content varchar(500) NOT NULL,
-    replying_to int(9),
+    reply_id int(9),
     posted_by varchar(100) NOT NULL,
     PRIMARY KEY (post_id, comment_id),
-    FOREIGN KEY (post_id, replying_to) REFERENCES comment(post_id, comment_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (post_id, reply_id) REFERENCES comment(post_id, comment_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (post_id) REFERENCES post(post_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (posted_by) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -60,12 +60,12 @@ CREATE TABLE message(
     message_id int(9) NOT NULL,
     content varchar(1000) NOT NULL,
     sender varchar(100) NOT NULL,
-    replying_to int(9),
+    reply_id int(9),
     time_sent datetime,
     PRIMARY KEY (chat_group_id, message_id),
     FOREIGN KEY (chat_group_id) REFERENCES chat_group(chat_group_id),
     FOREIGN KEY (sender) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (chat_group_id, replying_to) REFERENCES message(chat_group_id, message_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY (chat_group_id, reply_id) REFERENCES message(chat_group_id, message_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE user_chat_info(

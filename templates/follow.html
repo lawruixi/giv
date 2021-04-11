@@ -31,15 +31,15 @@
             <div class="d-flex flex-column rounded bg-light-light-green border border-secondary border-3 p-1 btn-group-vertical" role="group">
                 {% for user in users if not user['username'] == "admin" %}
                 <form class="w-100" action="" method="POST">
-                <div class="bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
+                <div class="follow-div bg-light-green border border-2 border-secondary rounded manage-users-div w-100 p-1 my-1 btn-group" role="group" style="display: flex;">
                     <p class="follow-p my-auto">{{user['username']}}</p>
                     <div class="btn-group w-25 ms-auto me-0" role="group">
                             {% if user['is_following'] == 1 %}
                             <input type="submit" class="btn-check btn-check-unfollow" id="btncheck_u_{{user['username']}}" name="btncheck_u_{{user['username']}}" autocomplete="off">
-                            <label class="noselect text-center checkbox-label-unfollow text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_u_{{user['username']}}" onclick="this.blur();">Unfollow</label>
+                            <label class="noselect text-center checkbox-label checkbox-label-unfollow text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_u_{{user['username']}}" onclick="this.blur();">Unfollow</label>
                             {% else %}
                             <input type="submit" class="btn-check btn-check-follow" id="btncheck_f_{{user['username']}}" name="btncheck_f_{{user['username']}}" autocomplete="off">
-                            <label class="noselect text-center checkbox-label-follow text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_f_{{user['username']}}" onclick="this.blur();">Follow</label>
+                            <label class="noselect text-center checkbox-label checkbox-label-follow text-color-black rounded border border-secondary border-2 w-100 p-1 my-1" for="btncheck_f_{{user['username']}}" onclick="this.blur();">Follow</label>
                             {% endif %}
                     </div>
                     </form>
