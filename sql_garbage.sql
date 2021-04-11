@@ -63,7 +63,7 @@ CREATE TABLE message(
     reply_id int(9),
     time_sent datetime,
     PRIMARY KEY (chat_group_id, message_id),
-    FOREIGN KEY (chat_group_id) REFERENCES chat_group(chat_group_id),
+    FOREIGN KEY (chat_group_id) REFERENCES chat_group(chat_group_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (sender) REFERENCES user(username) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (chat_group_id, reply_id) REFERENCES message(chat_group_id, message_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

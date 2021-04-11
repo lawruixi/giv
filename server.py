@@ -393,6 +393,12 @@ def edit_chat_group(chat_id):
     if(not valid):
         #User is not moderating chat group.
         return redirect(url_for("chat_group", chat_id=chat_id))
+
+    #If moderator deleted chat group:
+    if(request.method == "POST" and "delete_group" in request.form):
+        cursor.execute("DELETE FROM chat_group WHERE chat_group_id = %s", (chat_id, ))
+        mysql.connection.commit();
+        return redirect(url_for("feed"))
     
     if(request.method == "POST" and "name" in request.form):
         #Keep track of all users in the new group.
@@ -651,8 +657,11 @@ def edit_interest_group(interest_group_name):
     if(not valid):
         #Not authorized to view this page
         return redirect(url_for("feed"));
-    if(request.method == "POST"):
-        print(request.form);
+
+    if(request.method == "POST" and "delete_group" in request.form):
+        cursor.execute("DELETE FROM interest_group WHERE name = %s", (interest_group_name,))
+        mysql.connection.commit();
+        return redirect(url_for("feed"));
 
     if(request.method == "POST" and "description" in request.form):
         #Keep track of all users in the new group.
