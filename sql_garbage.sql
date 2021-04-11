@@ -251,8 +251,8 @@ INSERT INTO post VALUES (36, "2020-05-02 00:47:01", "Three-word Prompt: Stove, B
 
 INSERT INTO post VALUES (37, "2020-07-30 03:24:58", "World will be destroyed by climate change by 2050", "sad", 2, 1, "Angel_of_Death_9999");
 INSERT INTO post VALUES (39, "2021-03-10 07:18:01", "Iron deficiency leads to many heart problems, doctors find in new study", "As if that wasn't obvious lol", 69, 46, "ouroboros");
--- INSERT INTO post VALUES (40, "2021-03-25 23:10:35", "Leaders of tomorrow should ensure the world is not doom and gloom", "\"We're just doing our job\", president of ASU, the world's leading nation, says in press conference.", 3, 2, "CrispyChips");
--- INSERT INTO post VALUES (41, "2021-07-29 00:36:39", "hilarious meme leaves many contracting laughing disease", "\"I can't stop laughing,\" says a man we interviewed, while bursting into giggles. The authorities heavily advise the public against viewing this hilarious meme.", 6331, 5001, "seedyguy");
+INSERT INTO post VALUES (40, "2021-03-25 23:10:35", "Leaders of tomorrow should ensure the world is not doom and gloom", "\"We're just doing our job\", president of ASU, the world's leading nation, says in press conference.", 3, 2, "CrispyChips");
+INSERT INTO post VALUES (41, "2021-07-29 00:36:39", "hilarious meme leaves many contracting laughing disease", "\"I can't stop laughing,\" says a man we interviewed, while bursting into giggles. The authorities heavily advise the public against viewing this hilarious meme.", 6331, 5001, "seedyguy");
 
 INSERT INTO post VALUES (42, "2021-07-26 10:54:42", "New Ice with Cream at Dan and Jarry's!", "It tastes not bad actually... slurp!", 3, 1, "big_dinosaur11");
 INSERT INTO post VALUES (43, "2021-01-15 04:52:58", "Making my own pizzeria!", "Anyone's free to stop by \:D", 4, 2, "P1ZzA");
@@ -738,7 +738,7 @@ INSERT INTO chat_group VALUES (15, "death takes all", "", NULL, "2021-03-21");
 INSERT INTO chat_group VALUES (16, "Programming Horror", "", NULL, "2021-03-21");
 INSERT INTO chat_group VALUES (17, "aquaman interest group", "", NULL, "2021-03-21");
 INSERT INTO chat_group VALUES (18, "who is admin", "", NULL, "2021-03-21");
-INSERT INTO chat_group VALUES (19, "alphabet", "", NULL, "2021-03-21");
+INSERT INTO chat_group VALUES (19, "A GANG", "for all the glorious people whose usernames starts with A", NULL, "2021-03-21");
 INSERT INTO chat_group VALUES (20, "math_and_science", "", NULL, "2021-03-21");
 
  -- DELETE FROM chat_group_moderators;
@@ -807,11 +807,38 @@ INSERT INTO message VALUES (5, 1, "does anyone want to chat?", "big_dinosaur11",
 INSERT INTO message VALUES (6, 1, "hey long time no see", "nether_dragon", NULL, "2020-07-20 02:29:08");
 INSERT INTO message VALUES (6, 2, "yo!", "RedLavender", NULL, "2020-07-20 02:29:08");
 
+INSERT INTO message VALUES (7, 1, "hey guys want to play some Mine Art?", "tee_sword", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 2, "yoooooooo", "willsuit", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 3, "sure!", "tomminute", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 4, "will i need your password", "tomminute", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 5, "why do you need my password", "willsuit", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 6, "reasons", "tomminute", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 7, "No, Tom", "willsuit", NULL, "2020-10-14 08:14:44");
+INSERT INTO message VALUES (7, 8, "Well, it was worth a shot", "tomminute", NULL, "2020-10-14 08:14:44");
+
 INSERT INTO message VALUES (9, 1, "hey, how's your day?", "P1ZzA", NULL, "2020-07-20 00:27:01");
 INSERT INTO message VALUES (9, 2, "really great, thank you!", "hello", NULL, "2020-07-20 00:27:01");
 
-INSERT INTO message VALUES (9, 1, "hello!", "big_dinosaur11", NULL, "2020-07-20 00:27:01");
-INSERT INTO message VALUES (9, 2, "hey!", "hello", NULL, "2020-07-20 00:27:01");
+INSERT INTO message VALUES (10, 1, "hello!", "big_dinosaur11", NULL, "2020-07-20 00:27:01");
+INSERT INTO message VALUES (10, 2, "hey!", "hello", NULL, "2020-07-20 00:27:01");
+
+INSERT INTO message VALUES (12, 1, "does anyone want to go to the art museum today?", "RedLavender", NULL, "2020-07-21 16:51:40");
+INSERT INTO message VALUES (12, 2, "is it open?", "qwerty", NULL, "2020-07-20 16:51:40");
+INSERT INTO message VALUES (12, 3, "i dont know", "RedLavender", NULL, "2020-07-20 16:51:40");
+INSERT INTO message VALUES (12, 4, "that sounds like something we should check before we go there", "alphabet_king", NULL, "2020-07-20 16:51:40");
+INSERT INTO message VALUES (12, 5, "apparently it is not", "RedLavender", NULL, "2020-07-20 16:51:40");
+INSERT INTO message VALUES (12, 6, "oof", "qwerty", NULL, "2020-07-20 16:51:40");
+INSERT INTO message VALUES (12, 7, "nevermind then", "qwerty", NULL, "2020-07-20 16:51:40");
+
+INSERT INTO message VALUES (18, 1, "Who's the admin of giv?", "CrispyChips", NULL, "2020-08-12 22:05:11");
+INSERT INTO message VALUES (18, 2, "i dont know", "big_dinosaur11", NULL, "2020-08-12 22:05:11");
+INSERT INTO message VALUES (18, 3, "hello", "admin", NULL, "2020-08-12 22:05:11");
+INSERT INTO message VALUES (18, 4, "omg he's actually here", "CrispyChips", NULL, "2020-08-12 22:05:11");
+INSERT INTO message VALUES (18, 5, "\:O", "big_dinosaur11", NULL, "2020-08-12 22:05:11");
+
+INSERT INTO message VALUES (19, 1, "greetings fellow A's!", "alphabet_king", NULL, "2020-07-20 07:48:19");
+INSERT INTO message VALUES (19, 2, "Uhh... hello?", "aquaman", NULL, "2020-07-20 07:48:19");
+INSERT INTO message VALUES (19, 3, "Why are we here?", "Angel_of_Death_9999", NULL, "2020-07-20 07:48:19");
 
  -- DELETE FROM user_chat_info;
 INSERT INTO user_chat_info VALUES ("willsuit", 1);
@@ -824,6 +851,11 @@ INSERT INTO user_chat_info VALUES ("cookie_destroyer", 3);
 INSERT INTO user_chat_info VALUES ("ouroboros", 4);
 INSERT INTO user_chat_info VALUES ("symphony", 4);
 INSERT INTO user_chat_info VALUES ("big_dinosaur11", 5);
+INSERT INTO user_chat_info VALUES ("cookie_destroyer", 5);
+INSERT INTO user_chat_info VALUES ("cow_lover94", 5);
+INSERT INTO user_chat_info VALUES ("Theseus", 5);
+INSERT INTO user_chat_info VALUES ("qwerty", 5);
+INSERT INTO user_chat_info VALUES ("hello", 5);
 INSERT INTO user_chat_info VALUES ("nether_dragon", 6);
 INSERT INTO user_chat_info VALUES ("RedLavender", 6);
 INSERT INTO user_chat_info VALUES ("willsuit", 7);
@@ -840,6 +872,9 @@ INSERT INTO user_chat_info VALUES ("willsuit", 11);
 INSERT INTO user_chat_info VALUES ("tomminute", 11);
 INSERT INTO user_chat_info VALUES ("tee_sword", 11);
 INSERT INTO user_chat_info VALUES ("alphabet_king", 12);
+INSERT INTO user_chat_info VALUES ("RedLavender", 12);
+INSERT INTO user_chat_info VALUES ("qwerty", 12);
+INSERT INTO user_chat_info VALUES ("P1ZzA", 12);
 INSERT INTO user_chat_info VALUES ("seedyguy", 13);
 INSERT INTO user_chat_info VALUES ("tomminute", 14);
 INSERT INTO user_chat_info VALUES ("Theseus", 14);
@@ -850,6 +885,8 @@ INSERT INTO user_chat_info VALUES ("aquaman", 17);
 INSERT INTO user_chat_info VALUES ("big_dinosaur11", 18);
 INSERT INTO user_chat_info VALUES ("CrispyChips", 18);
 INSERT INTO user_chat_info VALUES ("alphabet_king", 19);
+INSERT INTO user_chat_info VALUES ("aquaman", 19);
+INSERT INTO user_chat_info VALUES ("Angel_of_Death_9999", 19);
 INSERT INTO user_chat_info VALUES ("nether_dragon", 20);
 INSERT INTO user_chat_info VALUES ("P1ZzA", 20);
 
@@ -902,24 +939,41 @@ INSERT INTO interest_group_moderators VALUES ("Puzzles", "P1ZzA");
  -- DELETE FROM interest_group_participants;
 INSERT INTO interest_group_participants VALUES ("Mine Art", "willsuit");
 INSERT INTO interest_group_participants VALUES ("Mine Art", "tomminute");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "tee_sword");
 INSERT INTO interest_group_participants VALUES ("Mine Art", "qwerty");
 INSERT INTO interest_group_participants VALUES ("Mine Art", "aquaman");
 INSERT INTO interest_group_participants VALUES ("Mine Art", "hello");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "ouroboros");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "Theseus");
+INSERT INTO interest_group_participants VALUES ("Mine Art", "symphony");
 
 INSERT INTO interest_group_participants VALUES ("Chess", "aquaman");
 
 INSERT INTO interest_group_participants VALUES ("Jokes", "qwerty");
-INSERT INTO interest_group_participants VALUES ("Jokes", "willsuit");
-INSERT INTO interest_group_participants VALUES ("Jokes", "tomminute");
-INSERT INTO interest_group_participants VALUES ("Jokes", "cow_lover94");
-INSERT INTO interest_group_participants VALUES ("Jokes", "big_dinosaur11");
 INSERT INTO interest_group_participants VALUES ("Jokes", "Theseus");
 INSERT INTO interest_group_participants VALUES ("Jokes", "cookie_destroyer");
-INSERT INTO interest_group_participants VALUES ("Jokes", "alphabet_king");
-INSERT INTO interest_group_participants VALUES ("Jokes", "hello");
+INSERT INTO interest_group_participants VALUES ("Jokes", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Jokes", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Jokes", "nether_dragon");
 
 INSERT INTO interest_group_participants VALUES ("Music", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Music", "hello");
+INSERT INTO interest_group_participants VALUES ("Music", "aquaman");
 INSERT INTO interest_group_participants VALUES ("Music", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Music", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Music", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Music", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Music", "symphony");
+INSERT INTO interest_group_participants VALUES ("Music", "ouroboros");
+INSERT INTO interest_group_participants VALUES ("Music", "CrispyChips");
 
 INSERT INTO interest_group_participants VALUES ("Chatting", "qwerty");
 INSERT INTO interest_group_participants VALUES ("Chatting", "willsuit");
@@ -931,17 +985,150 @@ INSERT INTO interest_group_participants VALUES ("Chatting", "cookie_destroyer");
 INSERT INTO interest_group_participants VALUES ("Chatting", "alphabet_king");
 INSERT INTO interest_group_participants VALUES ("Chatting", "aquaman");
 INSERT INTO interest_group_participants VALUES ("Chatting", "hello");
+INSERT INTO interest_group_participants VALUES ("Chatting", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Chatting", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Chatting", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Chatting", "ouroboros");
+INSERT INTO interest_group_participants VALUES ("Chatting", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Chatting", "symphony");
+INSERT INTO interest_group_participants VALUES ("Chatting", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Chatting", "P1ZzA");
 
-INSERT INTO interest_group_participants VALUES ("Advice", "qwerty");
 INSERT INTO interest_group_participants VALUES ("Advice", "willsuit");
-INSERT INTO interest_group_participants VALUES ("Advice", "tomminute");
-INSERT INTO interest_group_participants VALUES ("Advice", "cow_lover94");
-INSERT INTO interest_group_participants VALUES ("Advice", "big_dinosaur11");
-INSERT INTO interest_group_participants VALUES ("Advice", "Theseus");
 INSERT INTO interest_group_participants VALUES ("Advice", "cookie_destroyer");
-INSERT INTO interest_group_participants VALUES ("Advice", "alphabet_king");
-INSERT INTO interest_group_participants VALUES ("Advice", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Advice", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Advice", "tomminute");
+INSERT INTO interest_group_participants VALUES ("Advice", "Theseus");
+INSERT INTO interest_group_participants VALUES ("Advice", "qwerty");
 INSERT INTO interest_group_participants VALUES ("Advice", "hello");
+INSERT INTO interest_group_participants VALUES ("Advice", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Advice", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Advice", "tee_sword");
+INSERT INTO interest_group_participants VALUES ("Advice", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Advice", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Advice", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Advice", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Advice", "symphony");
+INSERT INTO interest_group_participants VALUES ("Advice", "ouroboros");
 
 INSERT INTO interest_group_participants VALUES ("Giv", "hello");
+INSERT INTO interest_group_participants VALUES ("Giv", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Giv", "RedLavender");
 
+INSERT INTO interest_group_participants VALUES ("Stories", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Stories", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Stories", "Theseus");
+INSERT INTO interest_group_participants VALUES ("Stories", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Stories", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Stories", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Stories", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Stories", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Stories", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Stories", "ouroboros");
+
+INSERT INTO interest_group_participants VALUES ("News", "qwerty");
+INSERT INTO interest_group_participants VALUES ("News", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("News", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("News", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("News", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("News", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("News", "ouroboros");
+
+INSERT INTO interest_group_participants VALUES ("Food", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Food", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Food", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Food", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Food", "tee_sword");
+INSERT INTO interest_group_participants VALUES ("Food", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Food", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Food", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Food", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Food", "ouroboros");
+
+INSERT INTO interest_group_participants VALUES ("Art", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Art", "tomminute");
+INSERT INTO interest_group_participants VALUES ("Art", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Art", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Art", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Art", "nether_dragon");
+
+INSERT INTO interest_group_participants VALUES ("Math", "Theseus");
+INSERT INTO interest_group_participants VALUES ("Math", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Math", "hello");
+INSERT INTO interest_group_participants VALUES ("Math", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Math", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Math", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Math", "alphabet_king");
+INSERT INTO interest_group_participants VALUES ("Math", "tee_sword");
+INSERT INTO interest_group_participants VALUES ("Math", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Math", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Math", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Math", "nether_dragon");
+
+INSERT INTO interest_group_participants VALUES ("Science", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Science", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Science", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Science", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Science", "alphabet_king");
+INSERT INTO interest_group_participants VALUES ("Science", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Science", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Science", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Science", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Science", "symphony");
+
+INSERT INTO interest_group_participants VALUES ("Books", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Books", "ouroboros");
+INSERT INTO interest_group_participants VALUES ("Books", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Books", "willsuit");
+INSERT INTO interest_group_participants VALUES ("Books", "hello");
+
+INSERT INTO interest_group_participants VALUES ("Movies", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Movies", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Movies", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Movies", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Movies", "symphony");
+
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "tomminute");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "Angel_of_Death_9999");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "alphabet_king");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "tee_sword");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "symphony");
+INSERT INTO interest_group_participants VALUES ("Mine Art II", "ouroboros");
+
+INSERT INTO interest_group_participants VALUES ("Birds", "cow_lover94");
+INSERT INTO interest_group_participants VALUES ("Birds", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Birds", "hello");
+INSERT INTO interest_group_participants VALUES ("Birds", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Birds", "alphabet_king");
+INSERT INTO interest_group_participants VALUES ("Birds", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Birds", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Birds", "symphony");
+INSERT INTO interest_group_participants VALUES ("Birds", "ouroboros");
+
+INSERT INTO interest_group_participants VALUES ("Programming", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Programming", "Theseus");
+INSERT INTO interest_group_participants VALUES ("Programming", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Programming", "big_dinosaur11");
+INSERT INTO interest_group_participants VALUES ("Programming", "alphabet_king");
+INSERT INTO interest_group_participants VALUES ("Programming", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Programming", "seedyguy");
+INSERT INTO interest_group_participants VALUES ("Programming", "RedLavender");
+INSERT INTO interest_group_participants VALUES ("Programming", "nether_dragon");
+INSERT INTO interest_group_participants VALUES ("Programming", "ouroboros");
+
+INSERT INTO interest_group_participants VALUES ("Puzzles", "cookie_destroyer");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "qwerty");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "hello");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "aquaman");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "alphabet_king");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "CrispyChips");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "P1ZzA");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "symphony");
+INSERT INTO interest_group_participants VALUES ("Puzzles", "ouroboros");

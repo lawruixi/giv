@@ -70,7 +70,7 @@ def login():
             return redirect(url_for("feed"))
             # return "Logged in :D"
         else:
-            flash("Incorrect login details.")
+            flash("Username or password is incorrect.")
             return render_template('login.html')
     return render_template('login.html')
 
