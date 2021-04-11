@@ -38,6 +38,12 @@
                     <p class="my-auto">{{post['views']}}</p>
                     <input class="mx-1 ms-3" style="height: 1rem;" type="image" src="{{url_for('static', filename='like.png')}}"></input>
                     <p class="my-auto">{{post['likes']}}</p>
+
+                    {% if post['posted_by'] == current_username %}
+                    <form class="d-inline ms-auto me-0" method="POST" action="">
+                        <input type="submit" name="delete_post" class="btn btn-danger ms-auto me-0 py-1 px-2" value="Delete Post">
+                    </form>
+                    {% endif %}
                 </div>
             </div>
             <div class="d-flex flex-column w-100 rounded border border-3 border-secondary bg-light-light-green text-color-black m-2">

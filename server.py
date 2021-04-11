@@ -748,6 +748,7 @@ def post(interest_group_name, post_id):
         #Not even logged in...
         return redirect(url_for("login"))
 
+    current_username = session.get('username');
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     cursor.execute("SELECT * FROM interest_group WHERE name = %s", (interest_group_name,));
     interest_group = cursor.fetchone();
@@ -762,6 +763,12 @@ def post(interest_group_name, post_id):
     #If post does not exist:
     if(not post):
         return redirect(url_for("feed"));
+
+    #User deletes post?
+    if(request.method == "POST" and "delete_post" in request.form):
+        cursor.execute("DELETE FROM post WHERE post_id = %s", (post_id,));
+        mysql.connection.commit();
+        return redirect(url_for("interest_group", interest_group_name = interest_group_name))
 
     #Handle user comment
     if(request.method == "POST" and "content" in request.form):
@@ -786,7 +793,7 @@ def post(interest_group_name, post_id):
     cursor.execute("SELECT * FROM comment WHERE post_id = %s", (post_id,));
     comments = cursor.fetchall(); #Get post
 
-    return render_template("post.html", post=post, comments=comments);
+    return render_template("post.html", post=post, comments=comments, current_username = current_username);
 
 @app.route('/logout')
 def logout():
