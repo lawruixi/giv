@@ -125,7 +125,6 @@ FOR EACH ROW
 CREATE TRIGGER removeChatGroup AFTER DELETE ON user_chat_info
 FOR EACH ROW
     BEGIN
-        -- SELECT @member_number := count(*) FROM user_chat_info WHERE user_chat_info.username <> "admin" AND user_chat_info.chat_group_id = old.chat_group_id;
         DECLARE member_number int;
         SELECT count(*) INTO member_number FROM user_chat_info WHERE user_chat_info.username <> "admin" AND user_chat_info.chat_group_id = old.chat_group_id;
         IF (member_number = 0) THEN
