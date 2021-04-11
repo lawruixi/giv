@@ -33,7 +33,12 @@
                 </div>
                 <h4 class="mx-auto">{{interest_group['description']}}</h4>
                 <a href="/interestgroup/{{interest_group['name']}}/post/new" class="w-100 m-2 p-2 btn btn-secondary bg-dark-green text-color-white fs-3">+ Post</a>
-
+                <form action="" method="POST">
+                    <div class="d-flex flex-row w-100 m-1 p-1">
+                        <input type="text" id="post_search" name="post_search" placeholder="Search for post..." class="w-75 p-1">
+                        <input type="submit" class="btn btn-secondary bg-dark-green w-25" value="Search">
+                    </div>
+                </form>
                 {% for post in posts %}
                 <div class="post-div d-flex flex-column w-100 rounded border border-3 border-secondary bg-light-light-green text-color-black m-2 p-2" onclick="location.href='/interestgroup/{{interest_group['name']}}/post/{{post['post_id']}}'" style="cursor: pointer;">
                         <div class="d-flex flex-row">

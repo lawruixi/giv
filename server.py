@@ -590,7 +590,7 @@ def create_interest_group():
 
     return render_template("createinterestgroup.html");
 
-@app.route('/interestgroup/<string:interest_group_name>')
+@app.route('/interestgroup/<string:interest_group_name>', methods=['GET', 'POST'])
 def interest_group(interest_group_name):
     if(not session.get('logged_in')):
         #Not even logged in...
@@ -616,8 +616,15 @@ def interest_group(interest_group_name):
     valid = cursor.fetchone();
     if(valid): is_mod = True;
     else: is_mod = False;
-    #Get all posts in the interest group.
-    cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %s ORDER BY post.posting_time DESC, post.post_id", (interest_group_name,));
+    
+    posts = {};
+    #Check if user searched for something:
+    if(request.method == "POST" and "post_search" in request.form):
+        query = "%" + request.form["post_search"] + "%";
+        cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %sAND (post.content LIKE %s OR post.title LIKE %s) ORDER BY post.posting_time DESC, post.post_id", (interest_group_name, query, query))
+    else:
+        #Get all posts in the interest group.
+        cursor.execute("SELECT * FROM post LEFT JOIN posting_info ON post.post_id = posting_info.post_id WHERE posting_info.interest_group = %s ORDER BY post.posting_time DESC, post.post_id", (interest_group_name,));
     posts = cursor.fetchall();
     cursor.close();
 
